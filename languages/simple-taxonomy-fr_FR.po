@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Simple Taxonomy 3.0.0\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/simple-taxonomy\n"
 "POT-Creation-Date: 2010-08-30 20:17+0000\n"
-"PO-Revision-Date: 2010-08-30 22:28+0100\n"
+"PO-Revision-Date: 2010-08-31 09:22+0100\n"
 "Last-Translator: Amaury Balmer <amaury@balmer.fr>\n"
 "Language-Team: BeAPI <amaury@beapi.fr>\n"
 "MIME-Version: 1.0\n"
@@ -213,7 +213,7 @@ msgstr "Administration"
 
 #: inc/class.admin.php:304
 msgid "Display on admin ?"
-msgstr ""
+msgstr "Afficher dans l'admin ?"
 
 #: inc/class.admin.php:312
 msgid "Whether to generate a default UI for managing this taxonomy."
@@ -229,7 +229,7 @@ msgstr ""
 
 #: inc/class.admin.php:328
 msgid "Show in nav menu ?"
-msgstr ""
+msgstr "Afficher dans le menu ?"
 
 #: inc/class.admin.php:336
 msgid "Put this setting to true for display this taxonomy on main admin menu."
@@ -237,7 +237,7 @@ msgstr ""
 
 #: inc/class.admin.php:340
 msgid "Show in tag cloud widget ?"
-msgstr ""
+msgstr "Afficher dans le widget de nuage de tags ?"
 
 #: inc/class.admin.php:348
 msgid "Put this setting to true for display this taxonomy on settings of tag cloud widget."
@@ -281,15 +281,15 @@ msgstr ""
 
 #: inc/class.admin.php:390
 msgid "Main information"
-msgstr ""
+msgstr "Information principale"
 
 #: inc/class.admin.php:398
 msgid "<strong>Name</strong> is used on DB. (All lowercase and no weird characters)"
-msgstr ""
+msgstr "Le <strong>nom</strong> est utilisé dans la base de données. (tous les caractères en minuscule et sans accentuation)"
 
 #: inc/class.admin.php:402
 msgid "Hierarchical ?"
-msgstr ""
+msgstr "Hierarchique ?"
 
 #: inc/class.admin.php:411
 msgid "Default <strong>hierarchical</strong> in WordPress are categories. Default post tags WP aren't hierarchical."
@@ -297,7 +297,7 @@ msgstr ""
 
 #: inc/class.admin.php:415
 msgid "Post types"
-msgstr ""
+msgstr "Types de contenu"
 
 #: inc/class.admin.php:428
 msgid "You can add this taxonomy to an builtin or custom post types. (compatible Simple Custom Types)"
@@ -305,15 +305,15 @@ msgstr ""
 
 #: inc/class.admin.php:432
 msgid "Auto add terms"
-msgstr ""
+msgstr "Ajouter automatiquement les termes"
 
 #: inc/class.admin.php:450
 msgid "Visibility"
-msgstr ""
+msgstr "Visibilité"
 
 #: inc/class.admin.php:455
 msgid "Public ?"
-msgstr ""
+msgstr "Publique ?"
 
 #: inc/class.admin.php:464
 msgid "Whether taxonomy queries can be performed from the front page."
@@ -321,28 +321,28 @@ msgstr ""
 
 #: inc/class.admin.php:474
 msgid "Translations Wording"
-msgstr ""
+msgstr "Traductions des mots"
 
 #: inc/class.admin.php:479
 msgid "Post Terms"
-msgstr ""
+msgstr "Termes de l'article"
 
 #: inc/class.admin.php:485
 msgid "Post Term"
-msgstr ""
+msgstr "Terme de l'article"
 
 #: inc/class.admin.php:586
 msgid "You cannot edit the Simple Taxonomy options."
-msgstr ""
+msgstr "Vous ne pouvez pas modifier les réglages de Simple Taxonomie."
 
 #: inc/class.admin.php:608
 msgid "Tcheater ? You try to edit a taxonomy without name. Impossible !"
-msgstr ""
+msgstr "Tricheur ! Vous essayez de modifier une taxonomie sans nom. Impossible !"
 
 #: inc/class.admin.php:624
 #: inc/class.admin.php:663
 msgid "Tcheater ? You try to add a taxonomy with a name already used by an another taxonomy."
-msgstr ""
+msgstr "Tricheur ! Vous essayez d'ajouter une taxonomie avec un nom déjà utilisé par une autre taxonomie."
 
 #: inc/class.admin.php:633
 msgid "Impossible to add your taxonomy... You must enter a taxonomy name."
@@ -354,150 +354,150 @@ msgstr ""
 
 #: inc/class.admin.php:680
 msgid "Tcheater ? You try to edit a taxonomy with a name different as original. Simple Taxonomy dont allow update the name. Propose a patch ;)"
-msgstr ""
+msgstr "Tricheur ? Vous essayez de modifer une taxonomie avec un nom "
 
 #: inc/class.admin.php:685
 msgid "Taxonomy updated with success ! You must reload your page for refresh the taxonomy menu."
-msgstr ""
+msgstr "La taxonomie a été ajoutée avec succès ! Vous devez recharger votre page pour rafraichir le menu taxonomie."
 
 #: inc/class.admin.php:698
 msgid "Tcheater ? You try to delete a taxonomy who not exist..."
-msgstr ""
+msgstr "Tricheur ? Vous essayez de supprimer une taxonomie qui n'existe pas..."
 
 #: inc/class.admin.php:706
 msgid "Taxonomy deleted with success ! You must reload your page for refresh the taxonomy menu."
-msgstr ""
+msgstr "Taxonomie effacée avec succès ! Vous devez recharger la page pour rafraichir le menu taxoniomie."
 
 #: inc/class.admin.php:757
 msgid "True"
-msgstr ""
+msgstr "Vrai"
 
 #: inc/class.admin.php:758
 msgid "False"
-msgstr ""
+msgstr "Faux"
 
 #: inc/class.admin.php:770
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
 #: inc/class.admin.php:771
 msgid "Content"
-msgstr ""
+msgstr "Contenu"
 
 #: inc/class.admin.php:772
 msgid "Excerpt"
-msgstr ""
+msgstr "Extrait"
 
 #: inc/class.admin.php:773
 msgid "Content and excerpt"
-msgstr ""
+msgstr "Contenu et extrait"
 
 #: inc/class.admin.php:792
 msgid "Default"
-msgstr ""
+msgstr "Défaut"
 
 #: inc/class.admin.php:793
 msgid "Select list"
-msgstr ""
+msgstr "Liste déroulante"
 
 #: inc/class.admin.php:794
 msgid "Select list (multiple)"
-msgstr ""
+msgstr "Liste déroulante (multiple)"
 
 #: inc/class.admin.post.php:136
 msgid "You cannot modify this taxonomy."
-msgstr ""
+msgstr "Vous ne pouvez pas modifié cette taxonomie."
 
 #: inc/class.admin.post.php:141
 msgid "No terms for this taxonomy actually."
-msgstr ""
+msgstr "Aucun terme pour la taxonomie actuelle."
 
 #: inc/class.admin.post.php:144
 msgid "-- None --"
-msgstr ""
+msgstr "-- Aucun --"
 
 #: inc/class.admin.post.php:153
 #, php-format
 msgid "+ %s"
-msgstr ""
+msgstr "+ %s"
 
 #: inc/class.widget.php:16
 msgid "Simple Taxonomy Widget"
-msgstr ""
+msgstr "Widget Simple Taxonomie"
 
 #: inc/class.widget.php:16
 msgid "A advanced tag cloud or list for your custom taxonomy!"
-msgstr ""
+msgstr "Une nuage de tags ou une liste non ordonné pour vos taxonomies personnalisées."
 
 #: inc/class.widget.php:50
 msgid "Tags"
-msgstr ""
+msgstr "Mots clefs"
 
 #: inc/class.widget.php:72
 msgid "No terms actually for this taxonomy."
-msgstr ""
+msgstr "Pas de terme actuelle pour cette taxonomie."
 
 #: inc/class.widget.php:113
 msgid "Adv Tag Cloud"
-msgstr ""
+msgstr "Nuage de tags avancé"
 
 #: inc/class.widget.php:124
 msgid "Title"
-msgstr ""
+msgstr "Titre"
 
 #: inc/class.widget.php:129
 msgid "What to show"
-msgstr ""
+msgstr "Afficher quoi ?"
 
 #: inc/class.widget.php:144
 msgid "How to show it"
-msgstr ""
+msgstr "Comment l'afficher ?"
 
 #: inc/class.widget.php:147
 msgid "Cloud"
-msgstr ""
+msgstr "Nuage"
 
 #: inc/class.widget.php:147
 msgid "List"
-msgstr ""
+msgstr "Liste"
 
 #: inc/class.widget.php:156
 msgid "Order within cloud"
-msgstr ""
+msgstr "Trier dans une nuage"
 
 #: inc/class.widget.php:159
 msgid "Random"
-msgstr ""
+msgstr "Aléatoire"
 
 #: inc/class.widget.php:159
 #: inc/class.widget.php:172
 msgid "Ascending"
-msgstr ""
+msgstr "Ascendant"
 
 #: inc/class.widget.php:159
 #: inc/class.widget.php:172
 msgid "Descending"
-msgstr ""
+msgstr "Descendant"
 
 #: inc/class.widget.php:169
 msgid "Order within list"
-msgstr ""
+msgstr "Trier dans une liste"
 
 #: inc/class.widget.php:179
 msgid "Show post count in list"
-msgstr ""
+msgstr "Afficher le compteur d'articles dans la liste"
 
 #: inc/class.widget.php:185
 msgid "Number of terms to show"
-msgstr ""
+msgstr "Nombre de termes à afficher"
 
 #. Plugin Name of the plugin/theme
 msgid "Simple Taxonomy"
-msgstr ""
+msgstr "Simple Taxonomie"
 
 #. Plugin URI of the plugin/theme
 msgid "http://redmine.beapi.fr/projects/show/simple-taxonomy"
-msgstr ""
+msgstr "http://redmine.beapi.fr/projects/show/simple-taxonomy"
 
 #. Description of the plugin/theme
 msgid "WordPress 3.0 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code."
@@ -505,9 +505,9 @@ msgstr ""
 
 #. Author of the plugin/theme
 msgid "Amaury Balmer"
-msgstr ""
+msgstr "Amaury Balmer"
 
 #. Author URI of the plugin/theme
 msgid "http://www.beapi.fr"
-msgstr ""
+msgstr "http://www.beapi.fr"
 
