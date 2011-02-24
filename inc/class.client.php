@@ -6,8 +6,6 @@
  * @author Amaury Balmer
  */
 class SimpleTaxonomy_Client {
-	var $current_options = null;
-	
 	/**
 	 * Constructor
 	 *
@@ -15,9 +13,6 @@ class SimpleTaxonomy_Client {
 	 * @author Amaury Balmer
 	 */
 	function simpletaxonomy_client() {
-		if ( $this->current_options == null )
-			$this->current_options = get_option( STAXO_OPTION );
-		
 		add_action( 'init', array(&$this, 'initTaxonomies'), 1 );
 		
 		add_filter( 'the_excerpt', array(&$this, 'excerptFilter'), 10, 1 );
@@ -34,10 +29,11 @@ class SimpleTaxonomy_Client {
 	 * @author Amaury Balmer
 	 */
 	function initTaxonomies() {
-		if ( is_array( $this->current_options['taxonomies'] ) ) {
-			foreach( (array) $this->current_options['taxonomies'] as $taxonomy ) {
+		$options = get_option( STAXO_OPTION );
+		if ( is_array( $options['taxonomies'] ) ) {
+			foreach( (array) $options['taxonomies'] as $taxonomy ) {
 				
-				// Empty query_var ? use name
+				// Empty query_private ? use name
 				$taxonomy['query_var'] = trim($taxonomy['query_var']);
 				if ( empty($taxonomy['query_var']) ) {
 					$taxonomy['query_var'] = $taxonomy['name'];
@@ -45,7 +41,7 @@ class SimpleTaxonomy_Client {
 				
 				// Rewrite
 				if ( $taxonomy['rewrite'] == 'true' ) {
-					$taxonomy['rewrite'] = array( 'slug' => $taxonomy['query_var'], 'with_front' => true ); // Hardcoded TODO future option ?
+					$taxonomy['rewrite'] = array( 'slug' => $taxonomy['query_var'], 'with_front' => true, 'hierarchical' => false );
 				}
 				
 				// Clean labels
@@ -135,7 +131,9 @@ class SimpleTaxonomy_Client {
 		global $post;
 		
 		$output = '';
-		foreach ( (array) $this->current_options['taxonomies'] as $taxonomy ) {
+		
+		$options = get_option( STAXO_OPTION );
+		foreach ( (array) $options['taxonomies'] as $taxonomy ) {
 			
 			$filter = false;
 			if ( $type == 'content' && isset($taxonomy['filter']) && (boolean) $taxonomy['filter'] == true ) {

@@ -1,513 +1,486 @@
-# Translation of the WordPress plugin Simple Taxonomy 3.0.0 by Amaury Balmer.
-# Copyright (C) 2010 Amaury Balmer
-# This file is distributed under the same license as the Simple Taxonomy package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
-#
 msgid ""
 msgstr ""
-"Project-Id-Version: Simple Taxonomy 3.0.0\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/simple-taxonomy\n"
-"POT-Creation-Date: 2010-08-30 20:17+0000\n"
-"PO-Revision-Date: 2010-08-31 09:22+0100\n"
+"Project-Id-Version: Simple Custom Post Types\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2011-02-22 15:21+0100\n"
+"PO-Revision-Date: 2011-02-22 16:48+0100\n"
 "Last-Translator: Amaury Balmer <amaury@balmer.fr>\n"
-"Language-Team: BeAPI <amaury@beapi.fr>\n"
+"Language-Team: BeAPI <translation@beapi.fr>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: French\n"
-"X-Poedit-Country: France\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop;_e;__;_x\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Language: France\n"
+"X-Poedit-Country: French\n"
 "X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-SearchPath-0: \n"
 
-#: inc/class.admin.conversion.php:31
-#: inc/class.admin.conversion.php:72
+#: /inc/class.admin.conversion.php:31
+#: /inc/class.admin.conversion.php:72
 msgid "Terms conversion"
 msgstr "Conversion de termes"
 
-#: inc/class.admin.conversion.php:73
+#: /inc/class.admin.conversion.php:73
 msgid "This page allows to convert the terms at present used as post tags in another taxonomy. The relation with objects is preserved."
-msgstr "Cette page permet de convert les termes actuellement utilisés mots clefs d'article dans une autre taxonomie. La relation avec les objets est préservée."
+msgstr "Cette page permet la conversion des termes d'une taxonomie à une autre. La relation avec les objets est préservée."
 
-#: inc/class.admin.conversion.php:81
+#: /inc/class.admin.conversion.php:81
 msgid "Term name"
 msgstr "Nom du terme"
 
-#: inc/class.admin.conversion.php:82
+#: /inc/class.admin.conversion.php:82
 msgid "New taxonomy"
-msgstr "Nouvelle taxonomie"
+msgstr "Nouvelle taxinomie"
 
-#: inc/class.admin.conversion.php:89
+#: /inc/class.admin.conversion.php:89
 msgid "No terms for this taxonomy."
-msgstr "Aucun terme pour cette taxonomie."
+msgstr "Aucun terme pour cette taxinomie."
 
-#: inc/class.admin.conversion.php:117
+#: /inc/class.admin.conversion.php:117
 msgid "Use an another taxonomy."
-msgstr "Utiliser une taxonomie différente."
+msgstr "Utiliser une autre taxinomie."
 
-#: inc/class.admin.conversion.php:123
-msgid "taxonomy"
-msgstr "taxonomie"
-
-#: inc/class.admin.conversion.php:126
+#: /inc/class.admin.conversion.php:126
 msgid "Convert terms"
 msgstr "Convertir les termes"
 
-#: inc/class.admin.conversion.php:133
+#: /inc/class.admin.conversion.php:133
 msgid "Choose a taxonomy"
-msgstr "Choisir la taxonomie"
+msgstr "Choisir une taxinomie"
 
-#: inc/class.admin.conversion.php:145
+#: /inc/class.admin.conversion.php:145
 msgid "Load terms for this taxonomy"
 msgstr "Charger les termes de cette taxonomie"
 
-#: inc/class.admin.php:29
-msgctxt "taxonomy general name"
+#: /inc/class.admin.php:30
+#: /inc/class.admin.php:492
 msgid "Post Terms"
-msgstr "Termes de l'article"
+msgstr "Termes"
 
-#: inc/class.admin.php:30
-msgctxt "taxonomy singular name"
+#: /inc/class.admin.php:31
+#: /inc/class.admin.php:498
 msgid "Post Term"
-msgstr "Terme de l'article"
+msgstr "Terme"
 
-#: inc/class.admin.php:31
-#: inc/class.admin.php:491
+#: /inc/class.admin.php:32
+#: /inc/class.admin.php:504
 msgid "Search Terms"
 msgstr "Chercher un terme"
 
-#: inc/class.admin.php:32
-#: inc/class.admin.php:497
+#: /inc/class.admin.php:33
+#: /inc/class.admin.php:510
 msgid "Popular Terms"
 msgstr "Termes populaires"
 
-#: inc/class.admin.php:33
-#: inc/class.admin.php:503
+#: /inc/class.admin.php:34
+#: /inc/class.admin.php:516
 msgid "All Terms"
 msgstr "Tous les termes"
 
-#: inc/class.admin.php:34
-#: inc/class.admin.php:509
+#: /inc/class.admin.php:35
+#: /inc/class.admin.php:522
 msgid "Parent Term"
 msgstr "Terme parent"
 
-#: inc/class.admin.php:35
-#: inc/class.admin.php:515
+#: /inc/class.admin.php:36
+#: /inc/class.admin.php:528
 msgid "Parent Term:"
 msgstr "Terme parent :"
 
-#: inc/class.admin.php:36
-#: inc/class.admin.php:521
+#: /inc/class.admin.php:37
+#: /inc/class.admin.php:534
 msgid "Edit Term"
 msgstr "Modifier le terme"
 
-#: inc/class.admin.php:37
-#: inc/class.admin.php:527
+#: /inc/class.admin.php:38
+#: /inc/class.admin.php:540
 msgid "Update Term"
 msgstr "Mettre à jour le terme"
 
-#: inc/class.admin.php:38
-#: inc/class.admin.php:533
+#: /inc/class.admin.php:39
+#: /inc/class.admin.php:546
 msgid "Add New Term"
 msgstr "Ajouter un nouveau terme"
 
-#: inc/class.admin.php:39
-#: inc/class.admin.php:539
+#: /inc/class.admin.php:40
+#: /inc/class.admin.php:552
 msgid "New Term Name"
 msgstr "Nouveau nom de terme"
 
-#: inc/class.admin.php:40
-#: inc/class.admin.php:545
+#: /inc/class.admin.php:41
+#: /inc/class.admin.php:558
 msgid "Separate terms with commas"
-msgstr "Séparer les termes avec des virgules"
+msgstr "Séparer les termes avec une virgule"
 
-#: inc/class.admin.php:41
-#: inc/class.admin.php:551
+#: /inc/class.admin.php:42
+#: /inc/class.admin.php:564
 msgid "Add or remove terms"
 msgstr "Ajouter ou supprimer des termes"
 
-#: inc/class.admin.php:42
-#: inc/class.admin.php:557
+#: /inc/class.admin.php:43
+#: /inc/class.admin.php:570
 msgid "Choose from the most used terms"
 msgstr "Choisir parmi les termes les plus utilisés"
 
-#: inc/class.admin.php:97
-msgid "Simple Taxonomy : Taxonomies"
-msgstr "Simple Taxonomy : Taxonomies"
+#: /inc/class.admin.php:98
+#: /inc/class.admin.php:141
+msgid "Simple Taxonomy : Custom Taxonomies"
+msgstr "Simple Taxonomy : Taxinomies personnalisées"
 
-#: inc/class.admin.php:97
+#: /inc/class.admin.php:98
 msgid "Custom Taxonomies"
-msgstr "Taxonomies personnalisées"
+msgstr "Taxinomies personnalisées"
 
-#: inc/class.admin.php:111
+#: /inc/class.admin.php:112
 #, php-format
 msgid "Custom Taxonomy : %s"
 msgstr "Taxonomie personnalisée : %s"
 
-#: inc/class.admin.php:140
-msgid "Simple Taxonomy : Custom Taxonomies"
-msgstr "Simple Taxonomy : Taxonomies personnalisées"
-
-#: inc/class.admin.php:143
+#: /inc/class.admin.php:144
 msgid "<strong>Warning :</strong> Delete a taxonomy will also delete all terms of these taxonomy and all object relations."
-msgstr "<strong>Avertissement :</strong> Effacer une taxonimie supprimera également tous les termes de cette taxonomie et les relations avec les objets."
+msgstr "<strong>Attention :</strong> Effacer une taxinomie effacera également tous les termes de cette taxinomie et leurs relations avec les objets."
 
-#: inc/class.admin.php:150
-#: inc/class.admin.php:157
+#: /inc/class.admin.php:151
+#: /inc/class.admin.php:160
 msgid "Label"
-msgstr ""
+msgstr "Nom affiché"
 
-#: inc/class.admin.php:151
-#: inc/class.admin.php:158
-#: inc/class.admin.php:395
+#: /inc/class.admin.php:152
+#: /inc/class.admin.php:161
+#: /inc/class.admin.php:408
 msgid "Name"
-msgstr "Nom"
+msgstr "Nom en base de données"
 
-#: inc/class.admin.php:152
-#: inc/class.admin.php:159
+#: /inc/class.admin.php:153
+#: /inc/class.admin.php:162
 msgid "Objects"
 msgstr "Objets"
 
-#: inc/class.admin.php:166
-msgid "No custom taxonomy."
-msgstr "Pas de taxonomie personnalisée."
+#: /inc/class.admin.php:154
+#: /inc/class.admin.php:163
+msgid "Hierarchical"
+msgstr "Hiérarchique"
 
-#: inc/class.admin.php:176
+#: /inc/class.admin.php:155
+#: /inc/class.admin.php:164
+msgid "Public"
+msgstr "Public"
+
+#: /inc/class.admin.php:171
+msgid "No custom taxonomy."
+msgstr "Aucune taxinomie personnalisé."
+
+#: /inc/class.admin.php:181
 #, php-format
 msgid "Edit the taxonomy &#8220;%s&#8221;"
-msgstr "Modifier la taxonomie &#8220;%s&#8221;"
+msgstr "Modifier la taxinomie &#8220;%s&#8221;"
 
-#: inc/class.admin.php:196
+#: /inc/class.admin.php:209
 msgid "Add a new taxonomy"
-msgstr "Ajouter une nouvelle taxonomie"
+msgstr "Ajouter une nouvelle taxinomie"
 
-#: inc/class.admin.php:216
+#: /inc/class.admin.php:229
 msgid "Add taxonomy"
-msgstr "Ajouter une taxonomie"
+msgstr "Ajouter une taxinomie"
 
-#: inc/class.admin.php:236
+#: /inc/class.admin.php:249
 msgid "Update taxonomy"
-msgstr "Mettre à jour la taxonomie"
+msgstr "Mettre à jour la taxinomie"
 
-#: inc/class.admin.php:276
+#: /inc/class.admin.php:289
 msgid "Rewrite URL"
-msgstr "Réécriture des URL"
+msgstr "URL de réécriture"
 
-#: inc/class.admin.php:279
+#: /inc/class.admin.php:292
 msgid "Query var"
-msgstr ""
+msgstr "Query var"
 
-#: inc/class.admin.php:282
+#: /inc/class.admin.php:295
 msgid "<strong>Query var</strong> is used for build URLs of taxonomy. If this value is empty, Simple Taxonomy will use a slug from label for build URL."
-msgstr ""
+msgstr "<strong>Query var</strong> est utilisé pour construire les adresses web des taxinomies. Si la valeur est vide, Simple Taxonomy utilisera la valeur du nom en base de données pour construire les adresses."
 
-#: inc/class.admin.php:285
+#: /inc/class.admin.php:298
 msgid "Rewrite ?"
 msgstr "Réécrire ?"
 
-#: inc/class.admin.php:294
+#: /inc/class.admin.php:307
 msgid "Rewriting allow to build nice URL for your new custom taxonomy."
-msgstr ""
+msgstr "La réécriture permet d'obtenir de belles adresses web pour votre nouvelle taxinomie."
 
-#: inc/class.admin.php:301
+#: /inc/class.admin.php:314
 msgid "Administration"
 msgstr "Administration"
 
-#: inc/class.admin.php:304
+#: /inc/class.admin.php:317
 msgid "Display on admin ?"
-msgstr "Afficher dans l'admin ?"
+msgstr "Afficher dans l'administration ?"
 
-#: inc/class.admin.php:312
+#: /inc/class.admin.php:325
 msgid "Whether to generate a default UI for managing this taxonomy."
-msgstr ""
+msgstr "Permets ou non de générer l'interface par défaut pour gérer cette taxinomie."
 
-#: inc/class.admin.php:316
+#: /inc/class.admin.php:329
 msgid "Admin form"
-msgstr ""
+msgstr "Formulaire de l'administration"
 
-#: inc/class.admin.php:324
+#: /inc/class.admin.php:337
 msgid "<strong>Admin form</strong> allow to choose a kind of selector on write content page."
-msgstr ""
+msgstr "Le <strong>formulaire de l'administration</strong> permet de choisir quel type de sélecteur afficher dans la page d'écriture."
 
-#: inc/class.admin.php:328
+#: /inc/class.admin.php:341
 msgid "Show in nav menu ?"
-msgstr "Afficher dans le menu ?"
+msgstr "Afficher dans le module de menu ?"
 
-#: inc/class.admin.php:336
+#: /inc/class.admin.php:349
 msgid "Put this setting to true for display this taxonomy on main admin menu."
-msgstr ""
+msgstr "Fixer ce réglage à vrai pour afficher cette taxinomie dans le menu principal de la console d'administration."
 
-#: inc/class.admin.php:340
+#: /inc/class.admin.php:353
 msgid "Show in tag cloud widget ?"
-msgstr "Afficher dans le widget de nuage de tags ?"
+msgstr "Afficher dans le nuage de tags ?"
 
-#: inc/class.admin.php:348
+#: /inc/class.admin.php:361
 msgid "Put this setting to true for display this taxonomy on settings of tag cloud widget."
-msgstr ""
+msgstr "Fixer ce réglage à vrai pour afficher cette taxinomie dans les réglages du widget de nuages de tags."
 
-#: inc/class.admin.php:356
+#: /inc/class.admin.php:369
 msgid "Permissions"
 msgstr "Permissions"
 
-#: inc/class.admin.php:359
+#: /inc/class.admin.php:372
 msgid "Manager terms"
 msgstr "Gérer les termes"
 
-#: inc/class.admin.php:361
+#: /inc/class.admin.php:374
 msgid "Ability to view terms in the administration. Defaults to 'manage_categories'."
-msgstr ""
+msgstr "Habilité à voir les termes dans la console d'administration. Valeur par défaut à 'manage_categories'."
 
-#: inc/class.admin.php:365
+#: /inc/class.admin.php:378
 msgid "Edit terms"
 msgstr "Modifier les termes"
 
-#: inc/class.admin.php:367
+#: /inc/class.admin.php:380
 msgid "Grants the ability to edit and create terms. Defaults to 'manage_categories'."
-msgstr ""
+msgstr "Habilité à modifier et créer des termes. Valeur par défaut à 'manage_categories'."
 
-#: inc/class.admin.php:371
+#: /inc/class.admin.php:384
 msgid "Delete terms"
-msgstr "Effacer les termes"
+msgstr "Effacer des termes"
 
-#: inc/class.admin.php:373
+#: /inc/class.admin.php:386
 msgid "Gives permission to delete terms from the taxonomy. Defaults to 'manage_categories'."
-msgstr ""
+msgstr "Donne la permission de supprimer des termes dans la taxinomie. Valeur par défaut à 'manage_categories'."
 
-#: inc/class.admin.php:377
+#: /inc/class.admin.php:390
 msgid "Assign terms"
-msgstr "Assigner les termes"
+msgstr "Assigner des termes"
 
-#: inc/class.admin.php:379
+#: /inc/class.admin.php:392
 msgid "Capability for assigning terms in the new/edit post screen. Defaults to 'edit_terms'"
-msgstr ""
+msgstr "Capacité pour assigner des termes à un contenu dans la page d'édition. Valeur par défaut à 'edit_terms'"
 
-#: inc/class.admin.php:390
+#: /inc/class.admin.php:403
 msgid "Main information"
 msgstr "Information principale"
 
-#: inc/class.admin.php:398
+#: /inc/class.admin.php:411
 msgid "<strong>Name</strong> is used on DB. (All lowercase and no weird characters)"
-msgstr "Le <strong>nom</strong> est utilisé dans la base de données. (tous les caractères en minuscule et sans accentuation)"
+msgstr "<strong>Nom</strong> en base de données. (Tous les caractères en minuscule, pas de caractères spéciaux)"
 
-#: inc/class.admin.php:402
+#: /inc/class.admin.php:415
 msgid "Hierarchical ?"
-msgstr "Hierarchique ?"
+msgstr "Hierarchie ?"
 
-#: inc/class.admin.php:411
+#: /inc/class.admin.php:424
 msgid "Default <strong>hierarchical</strong> in WordPress are categories. Default post tags WP aren't hierarchical."
-msgstr ""
+msgstr "Une taxinomie par défaut avec <strong>hiérarchie</strong> dans WordPress est les catégories. Les mots clefs (tags) ne sont pas hiérarchiques."
 
-#: inc/class.admin.php:415
+#: /inc/class.admin.php:428
 msgid "Post types"
 msgstr "Types de contenu"
 
-#: inc/class.admin.php:428
+#: /inc/class.admin.php:441
 msgid "You can add this taxonomy to an builtin or custom post types. (compatible Simple Custom Types)"
-msgstr ""
+msgstr "Vous avez la possibilité d'ajouter une taxinomie à un type de contenu par défaut ou personnalisé. (compatible Simple Custom Post Types)"
 
-#: inc/class.admin.php:432
+#: /inc/class.admin.php:445
 msgid "Auto add terms"
-msgstr "Ajouter automatiquement les termes"
+msgstr "Ajout automatique des termes"
 
-#: inc/class.admin.php:450
+#: /inc/class.admin.php:463
 msgid "Visibility"
 msgstr "Visibilité"
 
-#: inc/class.admin.php:455
+#: /inc/class.admin.php:468
 msgid "Public ?"
-msgstr "Publique ?"
+msgstr "Public ?"
 
-#: inc/class.admin.php:464
+#: /inc/class.admin.php:477
 msgid "Whether taxonomy queries can be performed from the front page."
-msgstr ""
+msgstr "Quelles taxinomies peuvent être appelées depuis la page d'accueil."
 
-#: inc/class.admin.php:474
+#: /inc/class.admin.php:487
 msgid "Translations Wording"
-msgstr "Traductions des mots"
+msgstr "Phrases à traduire"
 
-#: inc/class.admin.php:479
-msgid "Post Terms"
-msgstr "Termes de l'article"
-
-#: inc/class.admin.php:485
-msgid "Post Term"
-msgstr "Terme de l'article"
-
-#: inc/class.admin.php:586
+#: /inc/class.admin.php:599
 msgid "You cannot edit the Simple Taxonomy options."
-msgstr "Vous ne pouvez pas modifier les réglages de Simple Taxonomie."
+msgstr "Vous ne pouvez pas modifier les réglages de Simple Taxinomie."
 
-#: inc/class.admin.php:608
+#: /inc/class.admin.php:621
 msgid "Tcheater ? You try to edit a taxonomy without name. Impossible !"
-msgstr "Tricheur ! Vous essayez de modifier une taxonomie sans nom. Impossible !"
+msgstr "Tricheur  ? Vous essayez de modifier une taxinomie sans nom. Impossible !"
 
-#: inc/class.admin.php:624
-#: inc/class.admin.php:663
+#: /inc/class.admin.php:637
+#: /inc/class.admin.php:676
 msgid "Tcheater ? You try to add a taxonomy with a name already used by an another taxonomy."
-msgstr "Tricheur ! Vous essayez d'ajouter une taxonomie avec un nom déjà utilisé par une autre taxonomie."
+msgstr "Tricheur  ? Vous essayez d'ajouter une taxinomie avec une nom déjà utilisé par une autre taxinomie."
 
-#: inc/class.admin.php:633
+#: /inc/class.admin.php:646
 msgid "Impossible to add your taxonomy... You must enter a taxonomy name."
-msgstr ""
+msgstr "Impossible d'ajouter votre taxinomie. Vous devez saisir une nom de taxinomie."
 
-#: inc/class.admin.php:668
+#: /inc/class.admin.php:681
 msgid "Taxonomy added with success ! You must reload your page for see the new taxonomy menu."
-msgstr ""
+msgstr "Taxinomie ajoutée avec succès ! Vous devez recharge votre page pour voir le nouveau menu de la taxinomie."
 
-#: inc/class.admin.php:680
+#: /inc/class.admin.php:693
 msgid "Tcheater ? You try to edit a taxonomy with a name different as original. Simple Taxonomy dont allow update the name. Propose a patch ;)"
-msgstr "Tricheur ? Vous essayez de modifer une taxonomie avec un nom "
+msgstr "Tricheur  ? Vous essayez de modifier une taxinomie avec un nom différent de l'original. Simple Taxonomy ne propose pas de mettre à jour le nom. Proposer un patch ;)"
 
-#: inc/class.admin.php:685
+#: /inc/class.admin.php:698
 msgid "Taxonomy updated with success ! You must reload your page for refresh the taxonomy menu."
-msgstr "La taxonomie a été ajoutée avec succès ! Vous devez recharger votre page pour rafraichir le menu taxonomie."
+msgstr "Taxinomie mise à jour avec succès ! Vous devez recharge votre page pour voir le nouveau menu de la taxinomie."
 
-#: inc/class.admin.php:698
+#: /inc/class.admin.php:711
 msgid "Tcheater ? You try to delete a taxonomy who not exist..."
-msgstr "Tricheur ? Vous essayez de supprimer une taxonomie qui n'existe pas..."
+msgstr "Tricheur  ? Vous essayez de supprimer une taxinomie qui n'existe pas..."
 
-#: inc/class.admin.php:706
+#: /inc/class.admin.php:719
 msgid "Taxonomy deleted with success ! You must reload your page for refresh the taxonomy menu."
-msgstr "Taxonomie effacée avec succès ! Vous devez recharger la page pour rafraichir le menu taxoniomie."
+msgstr "Taxinomie effacée avec succès ! Vous devez recharge votre page pour voir le nouveau menu de la taxinomie."
 
-#: inc/class.admin.php:757
+#: /inc/class.admin.php:770
 msgid "True"
 msgstr "Vrai"
 
-#: inc/class.admin.php:758
+#: /inc/class.admin.php:771
 msgid "False"
 msgstr "Faux"
 
-#: inc/class.admin.php:770
+#: /inc/class.admin.php:783
 msgid "None"
 msgstr "Aucun"
 
-#: inc/class.admin.php:771
+#: /inc/class.admin.php:784
 msgid "Content"
 msgstr "Contenu"
 
-#: inc/class.admin.php:772
+#: /inc/class.admin.php:785
 msgid "Excerpt"
 msgstr "Extrait"
 
-#: inc/class.admin.php:773
+#: /inc/class.admin.php:786
 msgid "Content and excerpt"
 msgstr "Contenu et extrait"
 
-#: inc/class.admin.php:792
+#: /inc/class.admin.php:805
 msgid "Default"
 msgstr "Défaut"
 
-#: inc/class.admin.php:793
+#: /inc/class.admin.php:806
 msgid "Select list"
 msgstr "Liste déroulante"
 
-#: inc/class.admin.php:794
+#: /inc/class.admin.php:807
 msgid "Select list (multiple)"
 msgstr "Liste déroulante (multiple)"
 
-#: inc/class.admin.post.php:136
+#: /inc/class.admin.post.php:187
 msgid "You cannot modify this taxonomy."
-msgstr "Vous ne pouvez pas modifié cette taxonomie."
+msgstr "Vous ne pouvez pas modifier cette taxinomie."
 
-#: inc/class.admin.post.php:141
+#: /inc/class.admin.post.php:192
 msgid "No terms for this taxonomy actually."
-msgstr "Aucun terme pour la taxonomie actuelle."
+msgstr "Aucun terme pour cette taxinomie actuellement."
 
-#: inc/class.admin.post.php:144
+#: /inc/class.admin.post.php:195
 msgid "-- None --"
 msgstr "-- Aucun --"
 
-#: inc/class.admin.post.php:153
+#: /inc/class.admin.post.php:206
 #, php-format
 msgid "+ %s"
 msgstr "+ %s"
 
-#: inc/class.widget.php:16
+#: /inc/class.widget.php:16
 msgid "Simple Taxonomy Widget"
-msgstr "Widget Simple Taxonomie"
+msgstr "Widget Simple Taxonomy"
 
-#: inc/class.widget.php:16
+#: /inc/class.widget.php:16
 msgid "A advanced tag cloud or list for your custom taxonomy!"
-msgstr "Une nuage de tags ou une liste non ordonné pour vos taxonomies personnalisées."
+msgstr "Un nuage de tags avancé ou une liste pour votre taxinomie personnalisée."
 
-#: inc/class.widget.php:50
+#: /inc/class.widget.php:50
 msgid "Tags"
 msgstr "Mots clefs"
 
-#: inc/class.widget.php:72
+#: /inc/class.widget.php:72
 msgid "No terms actually for this taxonomy."
-msgstr "Pas de terme actuelle pour cette taxonomie."
+msgstr "Aucun terme actuellement pour cette taxinomie."
 
-#: inc/class.widget.php:113
+#: /inc/class.widget.php:113
 msgid "Adv Tag Cloud"
-msgstr "Nuage de tags avancé"
+msgstr "Nuage de tags avancés"
 
-#: inc/class.widget.php:124
+#: /inc/class.widget.php:124
 msgid "Title"
 msgstr "Titre"
 
-#: inc/class.widget.php:129
+#: /inc/class.widget.php:129
 msgid "What to show"
-msgstr "Afficher quoi ?"
+msgstr "Ce que vous voulez afficher"
 
-#: inc/class.widget.php:144
+#: /inc/class.widget.php:144
 msgid "How to show it"
 msgstr "Comment l'afficher ?"
 
-#: inc/class.widget.php:147
+#: /inc/class.widget.php:147
 msgid "Cloud"
 msgstr "Nuage"
 
-#: inc/class.widget.php:147
+#: /inc/class.widget.php:147
 msgid "List"
 msgstr "Liste"
 
-#: inc/class.widget.php:156
+#: /inc/class.widget.php:156
 msgid "Order within cloud"
-msgstr "Trier dans une nuage"
+msgstr "Ordre dans le nuage"
 
-#: inc/class.widget.php:159
+#: /inc/class.widget.php:159
 msgid "Random"
 msgstr "Aléatoire"
 
-#: inc/class.widget.php:159
-#: inc/class.widget.php:172
+#: /inc/class.widget.php:159
+#: /inc/class.widget.php:172
 msgid "Ascending"
 msgstr "Ascendant"
 
-#: inc/class.widget.php:159
-#: inc/class.widget.php:172
+#: /inc/class.widget.php:159
+#: /inc/class.widget.php:172
 msgid "Descending"
 msgstr "Descendant"
 
-#: inc/class.widget.php:169
+#: /inc/class.widget.php:169
 msgid "Order within list"
-msgstr "Trier dans une liste"
+msgstr "Ordre dans la liste"
 
-#: inc/class.widget.php:179
+#: /inc/class.widget.php:179
 msgid "Show post count in list"
-msgstr "Afficher le compteur d'articles dans la liste"
+msgstr "Afficher le compteur d'objets dans la liste"
 
-#: inc/class.widget.php:185
+#: /inc/class.widget.php:185
 msgid "Number of terms to show"
 msgstr "Nombre de termes à afficher"
-
-#. Plugin Name of the plugin/theme
-msgid "Simple Taxonomy"
-msgstr "Simple Taxonomie"
-
-#. Plugin URI of the plugin/theme
-msgid "http://redmine.beapi.fr/projects/show/simple-taxonomy"
-msgstr "http://redmine.beapi.fr/projects/show/simple-taxonomy"
-
-#. Description of the plugin/theme
-msgid "WordPress 3.0 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code."
-msgstr ""
-
-#. Author of the plugin/theme
-msgid "Amaury Balmer"
-msgstr "Amaury Balmer"
-
-#. Author URI of the plugin/theme
-msgid "http://www.beapi.fr"
-msgstr "http://www.beapi.fr"
 

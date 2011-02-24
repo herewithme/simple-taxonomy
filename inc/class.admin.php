@@ -1,13 +1,13 @@
 <?php
 class SimpleTaxonomy_Admin {
-	var $taxonomy_fields = array();
+	private $taxonomy_fields = array();
 	
-	var $admin_url 	= '';
-	var $admin_slug = 'simple-taxonomy-settings';
+	private $admin_url 	= '';
+	private $admin_slug = 'simple-taxonomy-settings';
 	
 	// Error management
-	var $message = '';
-	var $status  = '';
+	private $message = '';
+	private $status  = '';
 	
 	/**
 	 * Constructor
@@ -19,6 +19,7 @@ class SimpleTaxonomy_Admin {
 		$this->taxonomy_fields = array( 
 			'name' 			=> '',
 			'objects' 		=> array(),
+			'update_count_callback' => '',
 			'hierarchical' 	=> 1, 
 			'rewrite' 		=> 1,
 			'query_var' 	=> '',
@@ -71,7 +72,7 @@ class SimpleTaxonomy_Admin {
 		global $pagenow;
 		
 		if ( in_array( $pagenow, array('post.php', 'post-new.php') ) ) {
-			wp_enqueue_style ( 'simple-custom-types', STAXO_URL.'/ressources/admin.css', array(), SCUST_VERSION );
+			wp_enqueue_style( 'simple-custom-types', STAXO_URL.'/ressources/admin.css', array(), STAXO_VERSION );
 		}
 	}
 	
@@ -82,9 +83,14 @@ class SimpleTaxonomy_Admin {
 	 * @author Amaury Balmer
 	 */
 	function checkAdminPost() {
+		global $wp_rewrite;
+	
 		// Admin taxo
 		$this->checkMergeTaxonomy();
 		$this->checkDeleteTaxonomy();
+		
+		// Flush rewriting rules !
+		$wp_rewrite->flush_rules();
 	}
 	
 	/**
@@ -94,7 +100,7 @@ class SimpleTaxonomy_Admin {
 	 * @author Amaury Balmer
 	 */
 	function addMenu() {
-		add_options_page( __('Simple Taxonomy : Taxonomies', 'simple-taxonomy'), __('Custom Taxonomies', 'simple-taxonomy'), 'manage_options', $this->admin_slug, array( &$this, 'pageManage' ) );
+		add_options_page( __('Simple Taxonomy : Custom Taxonomies', 'simple-taxonomy'), __('Custom Taxonomies', 'simple-taxonomy'), 'manage_options', $this->admin_slug, array( &$this, 'pageManage' ) );
 	}
 	
 	/**
@@ -127,6 +133,24 @@ class SimpleTaxonomy_Admin {
 		// Get current options
 		$current_options = get_option( STAXO_OPTION );
 		
+		// Check get for message
+		if ( isset($_GET['message']) ) {
+			switch ( $_GET['message'] ) {
+				case 'flush-deleted' :
+					$this->message = __('Taxonomy and relations deleted with success !', 'simple-taxonomy');
+					break;
+				case 'deleted' :
+					$this->message = __('Taxonomy deleted with success !', 'simple-taxonomy');
+					break;
+				case 'added' :
+					$this->message = __('Taxonomy added with success !', 'simple-taxonomy');
+					break;
+				case 'updated' :
+					$this->message = __('Taxonomy updated with success !', 'simple-taxonomy');
+					break;
+			}
+		}
+		
 		// Display message
 		$this->displayMessage();
 		
@@ -140,7 +164,7 @@ class SimpleTaxonomy_Admin {
 			<h2><?php _e("Simple Taxonomy : Custom Taxonomies", 'simple-taxonomy'); ?></h2>
 			
 			<div class="message updated">
-				<p><?php _e('<strong>Warning :</strong> Delete a taxonomy will also delete all terms of these taxonomy and all object relations.', 'simple-taxonomy'); ?></p>
+				<p><?php _e('<strong>Warning :</strong> Delete & Flush a taxonomy will also delete all terms of these taxonomy and all object relations.', 'simple-taxonomy'); ?></p>
 			</div>
 			
 			<div id="col-container">
@@ -150,6 +174,8 @@ class SimpleTaxonomy_Admin {
 							<th scope="col" id="label" class="manage-column column-name"><?php _e('Label', 'simple-taxonomy'); ?></th>
 							<th scope="col" id="name"  class="manage-column column-slug"><?php _e('Name', 'simple-taxonomy'); ?></th>
 							<th scope="col" id="label" class="manage-column column-name"><?php _e('Objects', 'simple-taxonomy'); ?></th>
+							<th scope="col" id="label" class="manage-column column-name"><?php _e('Hierarchical', 'simple-taxonomy'); ?></th>
+							<th scope="col" id="label" class="manage-column column-name"><?php _e('Public', 'simple-taxonomy'); ?></th>
 						</tr>
 					</thead>
 					<tfoot>
@@ -157,6 +183,8 @@ class SimpleTaxonomy_Admin {
 							<th scope="col" class="manage-column column-name"><?php _e('Label', 'simple-taxonomy'); ?></th>
 							<th scope="col" class="manage-column column-slug"><?php _e('Name', 'simple-taxonomy'); ?></th>
 							<th scope="col" class="manage-column column-name"><?php _e('Objects', 'simple-taxonomy'); ?></th>
+							<th scope="col" class="manage-column column-name"><?php _e('Hierarchical', 'simple-taxonomy'); ?></th>
+							<th scope="col" class="manage-column column-name"><?php _e('Public', 'simple-taxonomy'); ?></th>
 						</tr>
 					</tfoot>
 			
@@ -177,11 +205,24 @@ class SimpleTaxonomy_Admin {
 										<br />
 										<div class="row-actions">
 											<span class="edit"><a href="<?php echo $this->admin_url; ?>&amp;action=edit&amp;taxonomy_name=<?php echo $_t_name; ?>">Modifier</a> | </span>
-											<span class="delete"><a class="delete-taxonomy" href="<?php echo wp_nonce_url($this->admin_url.'&amp;action=delete&amp;taxonomy_name='.$_t_name, 'delete-taxo-'.$_t_name); ?>">Supprimer</a></span>
+											<span class="delete"><a class="delete-taxonomy" href="<?php echo wp_nonce_url($this->admin_url.'&amp;action=delete&amp;taxonomy_name='.$_t_name, 'delete-taxo-'.$_t_name); ?>" onclick="if ( confirm( '<?php echo esc_js( sprintf( __( "You are about to delete this taxonomy '%s'\n  'Cancel' to stop, 'OK' to delete.", 'simple-taxonomy' ), $_t['labels']['name'] ) ); ?>' ) ) { return true;}return false;"><?php _e('Delete', 'simple-taxonomy'); ?></a> | </span>
+											<span class="delete"><a class="flush-delete-taxonomy" href="<?php echo wp_nonce_url($this->admin_url.'&amp;action=flush-delete&amp;taxonomy_name='.$_t_name, 'flush-delete-taxo-'.$_t_name); ?>" onclick="if ( confirm( '<?php echo esc_js( sprintf( __( "You are about to delete and flush this taxonomy '%s' and all relations.\n  'Cancel' to stop, 'OK' to delete.", 'simple-taxonomy' ), $_t['labels']['name'] ) ); ?>' ) ) { return true;}return false;"><?php _e('Flush & Delete', 'simple-taxonomy'); ?></a></span>
 										</div>
 									</td>
 									<td><?php echo esc_html($_t['name']); ?></td>
-									<td><?php echo esc_html(implode(', ', (array) $_t['objects'])); ?></td>
+									<td>
+										<?php
+										if ( is_array($_t['objects']) ) {
+											foreach( $_t['objects'] as $k => $post_type )
+											 	$_t['objects'][$k] = get_post_type_object($post_type)->labels->name;
+											echo esc_html(implode(', ', (array) $_t['objects']));
+										} else {
+											echo '-';
+										}
+										?>
+									</td>
+									<td><?php echo esc_html($this->getTrueFalse($_t['hierarchical'])); ?></td>
+									<td><?php echo esc_html($this->getTrueFalse($_t['public'])); ?></td>
 								</tr>
 							<?php
 							endforeach;
@@ -638,8 +679,9 @@ class SimpleTaxonomy_Admin {
 
 	/**
 	 * Check $_GET datas for delete a taxonomy
-	 * 
-	 * @return unknown_type
+	 *
+	 * @return void
+	 * @author Amaury Balmer
 	 */
 	function checkDeleteTaxonomy() {
 		if ( isset($_GET['action']) && isset($_GET['taxonomy_name']) && $_GET['action'] == 'delete' ) {
@@ -647,14 +689,26 @@ class SimpleTaxonomy_Admin {
 			
 			$taxonomy = array();
 			$taxonomy['name'] = stripslashes($_GET['taxonomy_name']);
-			$this->deleteTaxonomy( $taxonomy );
+			$this->deleteTaxonomy( $taxonomy, false );
+			return true;
+		} elseif ( isset($_GET['action']) && isset($_GET['taxonomy_name']) && $_GET['action'] == 'flush-delete' ) {
+			check_admin_referer( 'flush-delete-taxo-'.$_GET['taxonomy_name'] );
+			
+			$taxonomy = array();
+			$taxonomy['name'] = stripslashes($_GET['taxonomy_name']);
+			$this->deleteTaxonomy( $taxonomy, true );
+			return true;
 		}
+		
+		return false;
 	}
 	
 	/**
-	 * Add taxonomy options
-	 * 
-	 * @param $taxonomy
+	 * Add taxonomy in options
+	 *
+	 * @param array $taxonomy 
+	 * @return void
+	 * @author Amaury Balmer
 	 */
 	function addTaxonomy( $taxonomy ) {
 		$current_options = get_option( STAXO_OPTION );
@@ -665,13 +719,17 @@ class SimpleTaxonomy_Admin {
 		$current_options['taxonomies'][$taxonomy['name']] = $taxonomy;
 		
 		update_option( STAXO_OPTION, $current_options );
-		$this->message = __('Taxonomy added with success ! You must reload your page for see the new taxonomy menu.', 'simple-taxonomy');
+		
+		wp_redirect( $this->admin_url.'&message=added' );
+		exit();
 	}
 	
 	/**
-	 * Update taxonomy options
-	 * 
-	 * @param $taxonomy
+	 * Update taxonomy in options
+	 *
+	 * @param array $taxonomy 
+	 * @return void
+	 * @author Amaury Balmer
 	 */
 	function updateTaxonomy( $taxonomy ) {
 		$current_options = get_option( STAXO_OPTION );
@@ -682,16 +740,20 @@ class SimpleTaxonomy_Admin {
 		$current_options['taxonomies'][$taxonomy['name']] = $taxonomy;
 		
 		update_option( STAXO_OPTION, $current_options );
-		$this->message = __('Taxonomy updated with success ! You must reload your page for refresh the taxonomy menu.', 'simple-taxonomy');
+		
+		wp_redirect( $this->admin_url.'&message=updated' );
+		exit();
 	}
 	
 	/**
-	 * Delete a taxonomy
-	 * 
-	 * @param $taxonomy
-	 * @return boolean
+	 * Delete a taxonomy, and optionnaly flush contents
+	 *
+	 * @param string $taxonomy 
+	 * @param boolean $flush_relations 
+	 * @return boolean|void
+	 * @author Amaury Balmer
 	 */
-	function deleteTaxonomy( $taxonomy ) {
+	function deleteTaxonomy( $taxonomy, $flush_relations = false ) {
 		$current_options = get_option( STAXO_OPTION );
 		
 		if ( !isset($current_options['taxonomies'][$taxonomy['name']]) ) { // Taxo not exist ?
@@ -700,19 +762,22 @@ class SimpleTaxonomy_Admin {
 		}
 		
 		unset($current_options['taxonomies'][$taxonomy['name']]); // Delete from options
-		$this->deleteObjectsTaxonomy( $taxonomy['name'] ); // Delete object relations/terms
+		
+		if ( $flush_relations == true )
+			$this->deleteObjectsTaxonomy( $taxonomy['name'] ); // Delete object relations/terms
 		
 		update_option( STAXO_OPTION, $current_options );
-		$this->message = __('Taxonomy deleted with success ! You must reload your page for refresh the taxonomy menu.', 'simple-taxonomy');
-	
-		return true;
+		
+		wp_redirect( $this->admin_url.'&message=deleted' );
+		exit();
 	}
 	
 	/**
 	 * Delete all relationship between objects and terms for a specific taxonomy
-	 * 
-	 * @param $taxo_name
+	 *
+	 * @param string $taxo_name 
 	 * @return boolean
+	 * @author Amaury Balmer
 	 */
 	function deleteObjectsTaxonomy( $taxo_name = '' ) {
 		if ( empty($taxo_name) )
@@ -725,15 +790,16 @@ class SimpleTaxonomy_Admin {
 		foreach( (array) $terms as $term ) {
 			wp_delete_term( $term, $taxo_name );
 		}
-
+		
 		return true;
 	}
 	
 	/**
 	 * Use for build admin taxonomy
-	 * 
-	 * @param $key
-	 * @return string/array
+	 *
+	 * @param string $key 
+	 * @return array|object
+	 * @author Amaury Balmer
 	 */
 	function getObjectTypes( $key = '' ) {
 		// Get all post types registered.
@@ -765,6 +831,13 @@ class SimpleTaxonomy_Admin {
 		return $types;
 	}
 
+	/**
+	 * Use for build selector auto terms
+	 *
+	 * @param string $key 
+	 * @return array|string
+	 * @author Amaury Balmer
+	 */
 	function getAutoContentTypes( $key = '' ) {
 		$content_types = array( 
 			'none' 		=> __('None', 'simple-taxonomy'), 
@@ -783,9 +856,10 @@ class SimpleTaxonomy_Admin {
 	
 	/**
 	 * All types available for write page
-	 * 
-	 * @param $key
-	 * @return string/array
+	 *
+	 * @param string $key 
+	 * @return array|string
+	 * @author Amaury Balmer
 	 */
 	function getAdminTypes( $key = '' ) {
 		$admin_types = array(
@@ -805,6 +879,8 @@ class SimpleTaxonomy_Admin {
 	/**
 	 * Display WP alert
 	 *
+	 * @return void
+	 * @author Amaury Balmer
 	 */
 	function displayMessage() {
 		if ( $this->message != '') {

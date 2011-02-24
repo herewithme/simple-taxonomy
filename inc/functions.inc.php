@@ -10,10 +10,10 @@ function get_term_by_tt_id( $term_taxonomy_id = 0, $taxonomy = '' ) {
 	global $wpdb;
 	
 	$term_taxonomy_id = (int) $term_taxonomy_id;
-	if ( $term_taxonomy_id == 0 ) 
+	if ( $term_taxonomy_id == 0 )
 		return false;
 		
-	if ( !isset($taxonomy) || empty($taxonomy) || !taxonomy_exists($taxonomy) ) 
+	if ( !isset($taxonomy) || empty($taxonomy) || !taxonomy_exists($taxonomy) )
 		return false;
 	
 	$key = md5( $term_taxonomy_id . $taxonomy );

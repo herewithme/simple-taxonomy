@@ -1,15 +1,16 @@
 <?php
 class SimpleTaxonomy_Admin_Conversion{
-	var $conversion_url = '';
-	var $conv_slug 		= 'simple-taxonomy-conversion';
+	private $conv_slug 		= 'simple-taxonomy-conversion';
+	
+	// Error management
+	private $message = '';
+	private $status  = '';
 	
 	/**
 	 * Constructor
 	 *
 	 */
 	function simpletaxonomy_admin_conversion() {
-		$this->conversion_url 	= admin_url( 'tools.php?page='.$this->conv_slug );
-		
 		add_action( 'admin_init', array(&$this, 'checkAdminPost') );
 		add_action( 'admin_menu', array(&$this, 'addMenu') );
 	}
@@ -32,7 +33,7 @@ class SimpleTaxonomy_Admin_Conversion{
 	}
 	
 	/**
-	 * Check POST date for convert terms on an another taxonomy.
+	 * Check POST datas for convert terms on an another taxonomy.
 	 *
 	 * @return boolean
 	 */
@@ -66,13 +67,12 @@ class SimpleTaxonomy_Admin_Conversion{
 	 *
 	 */
 	function pageConversion() {
-		global $wp_taxonomies;
 		?>
 		<div class="wrap">
 			<h2><?php _e('Terms conversion', 'simple-taxonomy'); ?></h2>
 			<p><?php _e('This page allows to convert the terms at present used as post tags in another taxonomy. The relation with objects is preserved.', 'simple-taxonomy'); ?></p>
 			
-			<form action="<?php echo $this->conversion_url; ?>" method="post">
+			<form action="<?php echo admin_url( 'tools.php?page='.$this->conv_slug ); ?>" method="post">
 				<?php if ( isset($_POST['step']) && $_POST['step'] == '1' && isset($_POST['taxonomy']) && taxonomy_exists($_POST['taxonomy']) ) : ?>
 					
 					<table class="form-table">
@@ -91,7 +91,7 @@ class SimpleTaxonomy_Admin_Conversion{
 								
 								// make once the loop.
 								$select_html = '';
-								foreach( (array) $wp_taxonomies as $taxonomy ) {
+								foreach( get_taxonomies( array( 'show_ui' => true, 'public' => true ), 'object' ) as $taxonomy ) {
 									$select_html .= '<option '.selected($taxonomy->name, $_POST['taxonomy'], false).' value="'.esc_attr($taxonomy->name).'"> '.esc_html($taxonomy->label).' ('.esc_html($taxonomy->name).')</option>' . "\n";
 								}
 								
@@ -133,7 +133,7 @@ class SimpleTaxonomy_Admin_Conversion{
 						<label for="taxonomy"><?php _e('Choose a taxonomy', 'simple-taxonomy'); ?></label>
 						<select name="taxonomy" id="taxonomy">
 							<?php
-							foreach( (array) $wp_taxonomies as $taxonomy ) {
+							foreach( get_taxonomies( array( 'show_ui' => true, 'public' => true ), 'object' ) as $taxonomy ) {
 								echo '<option value="'.esc_attr($taxonomy->name).'"> '.esc_html($taxonomy->label).' ('.esc_html($taxonomy->name).')</option>' . "\n";
 							}
 							?>
@@ -149,6 +149,26 @@ class SimpleTaxonomy_Admin_Conversion{
 			</form>
 		</div>
 		<?php
+	}
+	
+	/**
+	 * Display WP alert
+	 *
+	 */
+	function displayMessage() {
+		if ( $this->message != '') {
+			$message = $this->message;
+			$status = $this->status;
+			$this->message = $this->status = ''; // Reset
+		}
+		
+		if ( isset($message) && !empty($message) ) {
+		?>
+			<div id="message" class="<?php echo ($status != '') ? $status :'updated'; ?> fade">
+				<p><strong><?php echo $message; ?></strong></p>
+			</div>
+		<?php
+		}
 	}
 }
 ?>

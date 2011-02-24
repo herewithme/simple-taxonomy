@@ -2,31 +2,62 @@
 Contributors: momo360modena
 Donate link: http://www.beapi.fr/donate/
 Tags: tags, taxonomies, custom taxonomies, taxonomy, category, categories, hierarchical, termmeta, meta, term meta, term conversion, conversion
-Requires at least: 3.0
-Tested up to: 3.0.1
-Stable tag: 3.0.0
+Requires at least: 3.1
+Tested up to: 3.1
+Stable tag: 3.1
 
-WordPress 3.0 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
+WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
+Add support for taxonomy with or without hierarchical. Choose the selector type for write post.
 
-Allow to add taxonomy to any objects registered on your installation. This plugin can be coupled with the plugin Custom Fields for WordPress to a new term meta database that allow to create on fly any field need for the taxonomy.
+Allow to add taxonomy to any objects registered on your installation. This plugin can be coupled with the plugin Custom Fields for WordPress to a new term meta database that allow to create on fly any field need for the taxonomy. For example, for a "Number" taxonomy, you can add fields : number ID, date of parution, screenshot, etc !
 
 == Description ==
 
-This plugin allows you to add taxonomy just by giving them a name and somes options in the backend. 
-
-It then creates the taxonomy for you, takes care of the URL rewrites, provides a widget you can use to display a "taxonomy cloud" or a list of all the stuff in there, and it allows you to show the taxonomy contents at the end of posts and excerpts as well.
-
+This plugin allows you to add taxonomy just by giving them a name and somes options in the backend. It then creates the taxonomy for you, takes care of the URL rewrites, provides a widget you can use to display a "taxonomy cloud" or a list of all the stuff in there, and it allows you to show the taxonomy contents at the end of posts and excerpts as well.
 To boot, it comes with a set of template tags for those who don't mind adapting their own theme.
 
 For full info go the [Simple Taxonomy](http://redmine.beapi.fr/projects/show/simple-taxonomy) page.
 
+== Frequently Asked Questions ==
+
+= Does this plugin handles custom fields? =
+
+No, we prefer to use 2 plugins specifically designed to meet two different needs ...
+
+= How to create a custom post type? =
+
+You can use a another plugin writted by Me and BeAPI :
+
+* [Simple Custom Post Types](http://wordpress.org/extend/plugins/simple-post-types/)
+
+= How to create a custom role? =
+
+You must install a plugin for managing roles and permissions as:
+
+* [Use role editor](http://wordpress.org/extend/plugins/user-role-editor/)
+* [Capability Manager](http://wordpress.org/extend/plugins/capsman/)
+
 == Installation ==
+
+ **Required PHP5.**
 
 1. Download, unzip and upload to your WordPress plugins directory
 2. Activate the plugin within you WordPress Administration Backend
-3. Go to Settings > Simple Taxonomy and follow the steps on the [Simple Taxonomy](http://redmine.beapi.fr/projects/show/simple-taxonomy) page.
+3. Go to Settings > Custom Taxonomies and follow the steps on the [Simple Taxonomy](http://redmine.beapi.fr/projects/show/simple-taxonomy) page.
 
 == Changelog ==
 
+* Version 3.1 :
+	* Make compatible 3.1
+	* Remove unused functions
+	* Add redirect on admin settings for skip refreshing
+	* Add flush rewriting when settings is upated
+	* Add tools for import terms from text/words
+	* Add remove and flush with JS confirmation
+	* Fix notice PHP
 * Version 3.0.0
 	* Initial version
+	
+== Upgrade Notice ==
+
+Nothing here :)

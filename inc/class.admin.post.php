@@ -12,7 +12,58 @@ class SimpleTaxonomy_Admin_Post {
 		// Write post box meta
 		add_action( 'add_meta_boxes', array(&$this, 'initObjectTaxonomies'), 10, 2 );
 		
-		return true;
+		// Add cols in list view
+		add_filter( 'manage_posts_columns', array(&$this, 'addColumnTaxonomies'), 10, 2 );
+		add_filter( 'manage_pages_columns', array(&$this, 'addColumnTaxonomies'), 10, 2 );
+		add_action( 'manage_posts_custom_column', array(&$this,'addCustomColumn'), 10, 2 );
+		add_action( 'manage_pages_custom_column', array(&$this,'addCustomColumn'), 10, 2 );
+	}
+	
+	/**
+	 * Add column for list content types for each taxonomy
+	 *
+	 * @param array $posts_columns 
+	 * @param string $post_type 
+	 * @return void
+	 * @author Amaury Balmer
+	 */
+	function addColumnTaxonomies( $posts_columns, $post_type = 'page' ) {
+		$taxos = get_object_taxonomies($post_type, 'objects');
+		foreach( $taxos as $taxo ) {
+			if ( $taxo->public == false || $taxo->show_ui == false || $taxo->_builtin == true )
+				continue;
+				
+			$posts_columns['staxo-'.$taxo->name] = $taxo->labels->name;
+		}
+		
+		return $posts_columns;
+	}
+
+	/**
+	 * Display tags with link for each taxonomy of content type !
+	 *
+	 * @param string $column_name 
+	 * @param integer $post_id 
+	 * @return void
+	 * @author Amaury Balmer
+	 */
+	function addCustomColumn( $column_name, $post_id ) {
+		global $post;
+		
+		if( substr($column_name, 0, 6) == 'staxo-' ) {
+			$current_taxo = str_replace('staxo-', '', $column_name);
+			
+			$terms = get_the_terms($post_id, $current_taxo);
+			if ( !empty( $terms ) ) {
+				$output = array();
+				foreach ( $terms as $term ) {
+					$output[] = "<a href='edit-tags.php?action=edit&taxonomy=".$current_taxo."&post_type=".$post->post_type."&tag_ID=$term->term_id'> " . esc_html(sanitize_term_field('name', $term->name, $term->term_id, $current_taxo, 'display')) . "</a>";
+				}
+				echo join( ', ', $output );
+			} else {
+				//_e('No term.','simple-case');
+			}
+		}
 	}
 	
 	/**
@@ -26,8 +77,8 @@ class SimpleTaxonomy_Admin_Post {
 	function saveObjectTaxonomies( $post_ID = 0, $post = null ) {
 		foreach ( get_object_taxonomies($post->post_type) as $tax_name ) {
 			// Classic fields
-			if ( isset($_POST['sp_tax_input'][$tax_name] ) ) {
-				if ( $_POST['sp_tax_input'][$tax_name] === '-' ) { // Use by HTML Select Admin Taxonomy
+			if( isset($_POST['_taxo_st_'.$tax_name]) && $_POST['_taxo_st_'.$tax_name] == 'true' ) {
+				if ( $_POST['sp_tax_input'][$tax_name] === '-' || !isset($_POST['sp_tax_input'][$tax_name]) ) { // Use by HTML Select Admin Taxonomy
 					wp_delete_object_term_relationships( $post_ID, array($tax_name) );
 				} else {
 					// Secure datas
@@ -140,13 +191,15 @@ class SimpleTaxonomy_Admin_Post {
 		if ( $all_terms == false || is_wp_error($all_terms) ) {
 			echo '<p>'.__('No terms for this taxonomy actually.', 'simple-taxonomy').'</p>';
 		} else {
-			echo '<select '.$disabled.' '.$multiple.' id="sp-tax-input-'.esc_attr($tax_name).'" name="sp_tax_input['.esc_attr($tax_name).'][]">' . "\n";
+			echo '<p><select '.$disabled.' '.$multiple.' id="sp-tax-input-'.esc_attr($tax_name).'" name="sp_tax_input['.esc_attr($tax_name).'][]" style="width:100%">' . "\n";
 				echo '<option '.selected( $current_terms, false, false ).'  value="-">'.__('-- None --', 'simple-taxonomy').'</option>' . "\n";
 				foreach( (array) $all_terms as $_term ) {
 					echo '<option '.selected( true, in_array( $_term->term_id, (array) $current_terms), false ).'  value="'.intval($_term->term_id).'">'.esc_html($_term->name).'</option>' . "\n";
 				}
-			echo '</select><br />' . "\n";
+			echo '</select></p>' . "\n";
 		}
+		
+		echo '<input type="hidden" name="_taxo_st_'.$tax_name.'" value="true" />';
 		
 		// Display only the link for user can edit terms
 		if ( current_user_can($taxonomy->cap->edit_terms) )

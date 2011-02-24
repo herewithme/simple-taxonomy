@@ -1,17 +1,15 @@
 <?php
 /*
 Plugin Name: Simple Taxonomy
-Version: 3.0.0
+Version: 3.1
 Plugin URI: http://redmine.beapi.fr/projects/show/simple-taxonomy
-Description: WordPress 3.0 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
+Description: WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
 Author: Amaury Balmer
 Author URI: http://www.beapi.fr
 
-Based on Simple Taxonomies. Thank you to : Joost de Valk
-
 ----
 
-Copyright 2010 Amaury Balmer (amaury@beapi.fr)
+Copyright 2010-2011 Amaury Balmer (amaury@beapi.fr)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,15 +29,12 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 Todo :
 	Admin
-	
 	Extras
-		Widgets JS
-	
 	Client
 */
 
 // Folder name
-define ( 'STAXO_VERSION', '3.0.0' );
+define ( 'STAXO_VERSION', '3.1' );
 define ( 'STAXO_OPTION',  'simple-taxonomy' );
 define ( 'STAXO_FOLDER',  'simple-taxonomy' );
 
@@ -54,18 +49,17 @@ if ( is_dir(WPMU_PLUGIN_DIR . DIRECTORY_SEPARATOR . STAXO_FOLDER ) ) {
 
 // Library
 require( STAXO_DIR . '/inc/functions.inc.php' );
-require( STAXO_DIR . '/inc/functions.tpl.php' );
+//require( STAXO_DIR . '/inc/functions.tpl.php' );
 
-// Call client class and functions
+// Call client classes
 require( STAXO_DIR . '/inc/class.base.php' );
 require( STAXO_DIR . '/inc/class.client.php' );
 require( STAXO_DIR . '/inc/class.widget.php' );
 
-if ( is_admin() ) {
-	// Call admin class
+if ( is_admin() ) { // Call admin classes
 	require( STAXO_DIR . '/inc/class.admin.php' );
 	require( STAXO_DIR . '/inc/class.admin.conversion.php' );
-	require( STAXO_DIR . '/inc/class.admin.taxo.php' );
+	require( STAXO_DIR . '/inc/class.admin.import.php' );
 	require( STAXO_DIR . '/inc/class.admin.post.php' );
 }
 
@@ -78,7 +72,7 @@ function initSimpleTaxonomy() {
 	global $simple_taxonomy;
 	
 	// Load translations
-	load_plugin_textdomain ( 'simple-taxonomy', false, STAXO_FOLDER . 'languages' );
+	load_plugin_textdomain ( 'simple-taxonomy', false, basename(rtrim(dirname(__FILE__), '/')) . '/languages' );
 	
 	// Client
 	$simple_taxonomy['client-base']  = new SimpleTaxonomy_Client();
@@ -87,9 +81,9 @@ function initSimpleTaxonomy() {
 	if ( is_admin() ) {
 		// Class admin
 		$simple_taxonomy['admin-base'] 		 = new SimpleTaxonomy_Admin();
-		$simple_taxonomy['admin-taxo'] 		 = new SimpleTaxonomy_Admin_Taxo();
 		$simple_taxonomy['admin-post'] 		 = new SimpleTaxonomy_Admin_Post();
 		$simple_taxonomy['admin-conversion'] = new SimpleTaxonomy_Admin_Conversion();
+		$simple_taxonomy['admin-import'] 	 = new SimpleTaxonomy_Admin_Import();
 	}
 	
 	// Widget

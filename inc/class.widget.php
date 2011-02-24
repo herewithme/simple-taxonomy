@@ -26,7 +26,7 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 	function _get_current_taxonomy($instance) {
 		if ( !empty($instance['taxonomy']) && taxonomy_exists($instance['taxonomy']) )
 			return $instance['taxonomy'];
-
+		
 		return 'post_tag';
 	}
 	
@@ -95,9 +95,15 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 	 */
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-		foreach ( array('title', 'taxonomy', 'number', 'type', 'showcount', 'cloudorder', 'listorder') as $val ) {
+		
+		// String
+		foreach ( array('title', 'taxonomy', 'number', 'type', 'cloudorder', 'listorder') as $val ) {
 			$instance[$val] = strip_tags( $new_instance[$val] );
 		}
+		
+		// Checkbox
+		$instance['showcount'] = ( isset($new_instance['showcount']) ) ? true : false;
+		
 		return $instance;
 	}
 	
@@ -110,11 +116,12 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 	 */
 	function form( $instance ) {
 		$defaults = array(
-			'title' 	=> __('Adv Tag Cloud', 'simple-taxonomy'),
-			'type' 		=> 'cloud',
+			'title' 		=> __('Adv Tag Cloud', 'simple-taxonomy'),
+			'type' 			=> 'cloud',
 			'cloudorder' 	=> 'RAND',
 			'listorder' 	=> 'ASC',
-			'number' 	=> 45,
+			'showcount' 	=> true,
+			'number' 		=> 45,
 		);
 		$instance = wp_parse_args( (array) $instance, $defaults ); 
 		
@@ -122,18 +129,18 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 		?>
 		<p>
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e("Title", 'simple-taxonomy'); ?>:</label>
-			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" style="width:100%;" />
+			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" />
 		</p>
 		
 		<p>
 			<label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e("What to show", 'simple-taxonomy'); ?>:</label>
-			<select id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>" style="width:100%;">
+			<select id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>" class="widefat">
 				<?php
 				foreach ( get_object_taxonomies('post') as $taxonomy ) {
 					$tax = get_taxonomy($taxonomy);
 					if ( !$tax->show_tagcloud || empty($tax->labels->name) )
 						continue;
-
+					
 					echo '<option '.selected( $current_taxonomy, $taxonomy, false ).' value="'.esc_attr($taxonomy).'">'.esc_html($tax->labels->name).'</option>';
 				}
 				?>
@@ -142,7 +149,7 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 		
 		<p>
 			<label for="<?php echo $this->get_field_id( 'type' ); ?>"><?php _e("How to show it", 'simple-taxonomy'); ?>:</label>
-			<select id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'type' ); ?>" style="width:100%;">
+			<select id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'type' ); ?>" class="widefat">
 				<?php
 				foreach( array( 'cloud' => __('Cloud', 'simple-taxonomy'), 'list' => __('List', 'simple-taxonomy') ) as $optval => $option ) {
 					echo '<option '.selected( $instance['type'], $option, false ).' value="'.esc_attr($optval).'">'.esc_html($option).'</option>';
@@ -151,10 +158,9 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 			</select>
 		</p>
 		
-		<?php if ( $instance['type'] == 'cloud' ) : ?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'cloudorder' ); ?>"><?php _e("Order within cloud", 'simple-taxonomy'); ?>:</label>
-			<select id="<?php echo $this->get_field_id( 'cloudorder' ); ?>" name="<?php echo $this->get_field_name( 'cloudorder' ); ?>" style="width:100%;">
+			<label for="<?php echo $this->get_field_id( 'cloudorder' ); ?>"><?php _e("Order for cloud", 'simple-taxonomy'); ?>:</label>
+			<select id="<?php echo $this->get_field_id( 'cloudorder' ); ?>" name="<?php echo $this->get_field_name( 'cloudorder' ); ?>" class="widefat">
 				<?php
 				foreach( array('RAND' => __('Random', 'simple-taxonomy'), 'ASC' => __('Ascending', 'simple-taxonomy'), 'DESC' => __('Descending', 'simple-taxonomy')) as $optval => $option ) {
 					echo '<option '.selected( $instance['cloudorder'], $optval, false ).' value="'.esc_attr($optval).'">'.esc_html($option).'</option>';
@@ -162,12 +168,10 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 				?>
 			</select>
 		</p>
-		<?php endif; ?>
 		
-		<?php if ( $instance['type'] == 'list' ) : ?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'listorder' ); ?>"><?php _e("Order within list", 'simple-taxonomy'); ?>:</label>
-			<select id="<?php echo $this->get_field_id( 'listorder' ); ?>" name="<?php echo $this->get_field_name( 'listorder' ); ?>" style="width:100%;">
+			<label for="<?php echo $this->get_field_id( 'listorder' ); ?>"><?php _e("Order for list", 'simple-taxonomy'); ?>:</label>
+			<select id="<?php echo $this->get_field_id( 'listorder' ); ?>" name="<?php echo $this->get_field_name( 'listorder' ); ?>" class="widefat">
 				<?php
 				foreach( array('ASC' => __('Ascending', 'simple-taxonomy'), 'DESC' => __('Descending', 'simple-taxonomy') ) as $optval => $option ) {
 					echo '<option '.selected( $instance['listorder'], $optval, false ).' value="'.esc_attr($optval).'">'.esc_html($option).'</option>';
@@ -175,15 +179,15 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 				?>
 			</select>
 		</p>
+	
 		<p>
-			<label for="<?php echo $this->get_field_id( 'showcount' ); ?>"><?php _e("Show post count in list", 'simple-taxonomy'); ?>:</label>
-			<input type="checkbox" id="<?php echo $this->get_field_id( 'showcount' ); ?>" name="<?php echo $this->get_field_name( 'showcount' ); ?>" <?php if ( $instance['showcount'] ) { echo 'checked="checked"'; } ?> style="width:100%;"/>
+			<input type="checkbox" id="<?php echo $this->get_field_id( 'showcount' ); ?>" name="<?php echo $this->get_field_name( 'showcount' ); ?>" <?php checked( $instance['showcount'], true ); ?> />
+			<label for="<?php echo $this->get_field_id( 'showcount' ); ?>"><?php _e("Show post count in list ?", 'simple-taxonomy'); ?></label>
 		</p>
-		<?php endif; ?>
 		
 		<p>
 			<label for="<?php echo $this->get_field_id( 'number' ); ?>"><?php _e("Number of terms to show", 'simple-taxonomy'); ?>:</label>
-			<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" value="<?php echo (int) $instance['number']; ?>" style="width:100%;" />
+			<input id="<?php echo $this->get_field_id( 'number' ); ?>" name="<?php echo $this->get_field_name( 'number' ); ?>" value="<?php echo (int) $instance['number']; ?>" class="widefat" />
 		</p>
 	<?php
 	}

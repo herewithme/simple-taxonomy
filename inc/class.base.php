@@ -1,11 +1,6 @@
 <?php
 class SimpleTaxonomy_Base {
 	/**
-	 * Empty constuctor.
-	 */
-	function simpletaxonomy_base() {}
-	
-	/**
 	 * Empty function for callback install
 	 *
 	 * @return void
