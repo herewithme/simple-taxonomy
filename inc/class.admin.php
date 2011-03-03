@@ -212,9 +212,15 @@ class SimpleTaxonomy_Admin {
 									<td><?php echo esc_html($_t['name']); ?></td>
 									<td>
 										<?php
-										if ( is_array($_t['objects']) ) {
-											foreach( $_t['objects'] as $k => $post_type )
-											 	$_t['objects'][$k] = get_post_type_object($post_type)->labels->name;
+										if ( is_array($_t['objects']) && !empty($_t['objects']) ) {
+											foreach( $_t['objects'] as $k => $post_type ) {
+												$cpt = get_post_type_object($post_type);
+												if ( $cpt == null ) {
+													unset($_t['objects'][$k]);
+												} else {
+													$_t['objects'][$k] = $cpt->labels->name;
+												}
+											}
 											echo esc_html(implode(', ', (array) $_t['objects']));
 										} else {
 											echo '-';
