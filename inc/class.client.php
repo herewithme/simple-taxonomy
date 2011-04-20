@@ -52,7 +52,7 @@ class SimpleTaxonomy_Client {
 				register_taxonomy( $taxonomy['name'], $taxonomy['objects'],
 					array(
 						'hierarchical' 			=> $taxonomy['hierarchical'],
-						//'update_count_callback' => array(&$this, '_update_object_term_count'),
+						'update_count_callback' => '_update_post_term_count', // use default WP callback
 						'rewrite' 				=> (boolean) $taxonomy['rewrite'],
 						'query_var' 			=> $taxonomy['query_var'],
 						'public' 				=> (boolean) $taxonomy['public'],

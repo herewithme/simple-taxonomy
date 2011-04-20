@@ -88,9 +88,6 @@ class SimpleTaxonomy_Admin {
 		// Admin taxo
 		$this->checkMergeTaxonomy();
 		$this->checkDeleteTaxonomy();
-		
-		// Flush rewriting rules !
-		$wp_rewrite->flush_rules();
 	}
 	
 	/**
@@ -676,6 +673,8 @@ class SimpleTaxonomy_Admin {
 					$this->updateTaxonomy( $taxonomy );
 				}
 				
+				// Flush rewriting rules !
+				$wp_rewrite->flush_rules(false);
 			} else {
 				$this->message = __('Impossible to add your taxonomy... You must enter a taxonomy name.', 'simple-taxonomy');
 				$this->status  = 'error';
@@ -696,6 +695,10 @@ class SimpleTaxonomy_Admin {
 			$taxonomy = array();
 			$taxonomy['name'] = stripslashes($_GET['taxonomy_name']);
 			$this->deleteTaxonomy( $taxonomy, false );
+			
+			// Flush rewriting rules !
+			$wp_rewrite->flush_rules(false);
+			
 			return true;
 		} elseif ( isset($_GET['action']) && isset($_GET['taxonomy_name']) && $_GET['action'] == 'flush-delete' ) {
 			check_admin_referer( 'flush-delete-taxo-'.$_GET['taxonomy_name'] );
@@ -703,6 +706,10 @@ class SimpleTaxonomy_Admin {
 			$taxonomy = array();
 			$taxonomy['name'] = stripslashes($_GET['taxonomy_name']);
 			$this->deleteTaxonomy( $taxonomy, true );
+			
+			// Flush rewriting rules !
+			$wp_rewrite->flush_rules(false);
+			
 			return true;
 		}
 		
