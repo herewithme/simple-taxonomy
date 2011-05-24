@@ -136,7 +136,7 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'taxonomy' ); ?>"><?php _e("What to show", 'simple-taxonomy'); ?>:</label>
 			<select id="<?php echo $this->get_field_id( 'taxonomy' ); ?>" name="<?php echo $this->get_field_name( 'taxonomy' ); ?>" class="widefat">
 				<?php
-				foreach ( get_object_taxonomies('post') as $taxonomy ) {
+				foreach ( get_taxonomies() as $taxonomy ) {
 					$tax = get_taxonomy($taxonomy);
 					if ( !$tax->show_tagcloud || empty($tax->labels->name) )
 						continue;
@@ -152,7 +152,7 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 			<select id="<?php echo $this->get_field_id( 'type' ); ?>" name="<?php echo $this->get_field_name( 'type' ); ?>" class="widefat">
 				<?php
 				foreach( array( 'cloud' => __('Cloud', 'simple-taxonomy'), 'list' => __('List', 'simple-taxonomy') ) as $optval => $option ) {
-					echo '<option '.selected( $instance['type'], $option, false ).' value="'.esc_attr($optval).'">'.esc_html($option).'</option>';
+					echo '<option '.selected( $instance['type'], $optval, false ).' value="'.esc_attr($optval).'">'.esc_html($option).'</option>';
 				}
 				?>
 			</select>
