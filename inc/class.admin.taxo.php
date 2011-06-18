@@ -1,6 +1,9 @@
 <?php
 class SimpleTaxonomy_Admin_Taxo {
-	function simpletaxonomy_admin_taxo() {
+	/**
+	 * Constructor
+	 */
+	function SimpleTaxonomy_Admin_Taxo() {
 		// Fix parent menu for tags taxonomy
 		add_action( 'admin_xml_ns', array(&$this, 'fixTopMenu') );
 		

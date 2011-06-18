@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Taxonomy
-Version: 3.1.2
+Version: 3.1.3
 Plugin URI: http://redmine.beapi.fr/projects/show/simple-taxonomy
 Description: WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
 Author: Amaury Balmer

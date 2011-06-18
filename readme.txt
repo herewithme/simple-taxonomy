@@ -3,8 +3,8 @@ Contributors: momo360modena
 Donate link: http://www.beapi.fr/donate/
 Tags: tags, taxonomies, custom taxonomies, taxonomy, category, categories, hierarchical, termmeta, meta, term meta, term conversion, conversion
 Requires at least: 3.1
-Tested up to: 3.1.2
-Stable tag: 3.1.2
+Tested up to: 3.2
+Stable tag: 3.1.3
 
 WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
 Add support for taxonomy with or without hierarchical. Choose the selector type for write post.
@@ -47,6 +47,9 @@ You must install a plugin for managing roles and permissions as:
 
 == Changelog ==
 
+* Version 3.1.3 :
+	* Fix a bug with custom taxonomy that not display on custom post types.
+	* Tested on WordPress 3.2
 * Version 3.1.2 :
 	* Fix a bug with select taxonomies on widget
 * Version 3.1.1 :

@@ -121,13 +121,15 @@ class SimpleTaxonomy_Admin_Post {
 			// Display name
 			$label = $taxonomy->labels->name;
 			
-			// Remove default meta boxes
-			remove_meta_box( 'tagsdiv-' . $tax_name, $post_type, 'side' );
-			remove_meta_box( $tax_name . 'div', $post_type, 'side' );
-			
 			// Dispatch admin block
 			$ad_type = isset($taxonomies_admin[$tax_name]) ? $taxonomies_admin[$tax_name] : 'default';
-
+			
+			// Remove default meta boxes
+			if ( $ad_type != 'default' ) :
+				remove_meta_box( 'tagsdiv-' . $tax_name, $post_type, 'side' );
+				remove_meta_box( $tax_name . 'div', $post_type, 'side' );
+			endif;
+			
 			// Display meta box
 			switch( $ad_type ) {
 				case 'select' : // Custom single selector
@@ -149,8 +151,6 @@ class SimpleTaxonomy_Admin_Post {
 			
 			// Try to free memory !
 			unset($label, $taxonomy, $ad_type);
-			
-			return true;
 		}
 		return false;
 	}
