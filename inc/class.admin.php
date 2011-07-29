@@ -88,6 +88,7 @@ class SimpleTaxonomy_Admin {
 		// Admin taxo
 		$this->checkMergeTaxonomy();
 		$this->checkDeleteTaxonomy();
+		$this->checkImportExport();
 	}
 	
 	/**
@@ -241,6 +242,31 @@ class SimpleTaxonomy_Admin {
 					<?php $this->formMergeCustomType(); ?>
 				</div>
 			</div><!-- /col-container -->
+		</div>
+		
+		<div class="wrap">
+			<h2><?php _e("Simple Taxonomy : Export/Import", 'simple-taxonomy'); ?></h2>
+			
+			<a class="button" href="<?php echo wp_nonce_url($this->admin_url.'&amp;action=export_config', 'export-config'); ?>"><?php _e("Export config file", 'simple-taxonomy'); ?></a>
+			<a class="button" href="#" id="toggle-import_form"><?php _e("Import config file", 'simple-taxonomy'); ?></a>
+			<script type="text/javascript">
+				jQuery("#toggle-import_form").click(function(event) {
+					event.preventDefault();
+					jQuery('#import_form').removeClass('hide-if-js');
+				});
+			</script>
+			<div id="import_form" class="hide-if-js">
+				<form action="<?php echo $this->admin_url ; ?>" method="post" enctype="multipart/form-data">
+					<p>
+						<label><?php _e("Config file", 'simple-taxonomy'); ?></label>
+						<input type="file" name="config_file" />
+					</p>
+					<p class="submit">
+						<?php wp_nonce_field( 'import_config_file' ); ?>
+						<input class="button-primary" type="submit" name="import_config_file" value="<?php _e('I want import a config from a previous backup, this action will REPLACE current configuration', 'simple-taxonomy'); ?>" />
+					</p>
+				</form>
+			</div>
 		</div>
 		<?php
 		return true;
@@ -617,13 +643,66 @@ class SimpleTaxonomy_Admin {
 		</form>
 		<?php
 	}
+
+	/**
+	 * Check $_POST datas for add/merge taxonomy
+	 * 
+	 * @return boolean
+	 */
+	function checkImportExport() {
+		if ( isset($_GET['action']) && $_GET['action'] == 'export_config' ) {
+			check_admin_referer('export-config');
+			
+			// No cache
+			header( 'Expires: Sat, 26 Jul 1997 05:00:00 GMT' ); 
+			header( 'Last-Modified: ' . gmdate( 'D, d M Y H:i:s' ) . ' GMT' ); 
+			header( 'Cache-Control: no-store, no-cache, must-revalidate' ); 
+			header( 'Cache-Control: post-check=0, pre-check=0', false ); 
+			header( 'Pragma: no-cache' ); 
+			
+			// Force download dialog
+			header("Content-Type: application/force-download");
+			header("Content-Type: application/octet-stream");
+			header("Content-Type: application/download");
+
+			// use the Content-Disposition header to supply a recommended filename and
+			// force the browser to display the save dialog.
+			header("Content-Disposition: attachment; filename=simple-taxonomy-config-".date('U').".txt;");
+			die('SIMPLETAXONOMY'.base64_encode(serialize(get_option( STAXO_OPTION ))));
+		} elseif( isset($_POST['import_config_file']) && isset($_FILES['config_file']) ) {
+			check_admin_referer( 'import_config_file' );
+			
+			if ( $_FILES['config_file']['error'] > 0 ) {
+				$this->message = __('An error occured during the config file upload. Please fix your server configuration and retry.', 'simple-taxonomy');
+				$this->status  = 'error';
+			} else {
+				$config_file = file_get_contents( $_FILES['config_file']['tmp_name'] );
+				if ( substr($config_file, 0, strlen('SIMPLETAXONOMY')) !== 'SIMPLETAXONOMY' ) {
+					$this->message = __('This is really a config file for Simple Taxonomy ? Probably corrupt :(', 'simple-taxonomy');
+					$this->status  = 'error';
+				} else {
+					$config_file = unserialize(base64_decode(substr($config_file, strlen('SIMPLETAXONOMY'))));
+					if ( !is_array($config_file) ) {
+						$this->message = __('This is really a config file for Simple Taxonomy ? Probably corrupt :(', 'simple-taxonomy');
+						$this->status  = 'error';
+					} else {
+						update_option(STAXO_OPTION, $config_file);
+						$this->message = __('OK. Configuration is restored.', 'simple-taxonomy');
+						$this->status  = 'updated';
+					}
+				}
+			}
+		}
+	}
 	
 	/**
 	 * Check $_POST datas for add/merge taxonomy
 	 * 
-	 * @return unknown_type
+	 * @return boolean
 	 */
 	function checkMergeTaxonomy() {
+		global $wp_rewrite;
+		
 		if ( isset($_POST['action']) && in_array( $_POST['action'], array('add-taxonomy', 'merge-taxonomy') ) ) {
 			
 			if ( !current_user_can('manage_options') )
@@ -675,11 +754,15 @@ class SimpleTaxonomy_Admin {
 				
 				// Flush rewriting rules !
 				$wp_rewrite->flush_rules(false);
+				
+				return true;
 			} else {
 				$this->message = __('Impossible to add your taxonomy... You must enter a taxonomy name.', 'simple-taxonomy');
 				$this->status  = 'error';
 			}
 		}
+		
+		return false;
 	}
 
 	/**
@@ -689,6 +772,8 @@ class SimpleTaxonomy_Admin {
 	 * @author Amaury Balmer
 	 */
 	function checkDeleteTaxonomy() {
+		global $wp_rewrite;
+		
 		if ( isset($_GET['action']) && isset($_GET['taxonomy_name']) && $_GET['action'] == 'delete' ) {
 			check_admin_referer( 'delete-taxo-'.$_GET['taxonomy_name'] );
 			
