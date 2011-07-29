@@ -83,9 +83,6 @@ class SimpleTaxonomy_Admin {
 	 * @author Amaury Balmer
 	 */
 	function checkAdminPost() {
-		global $wp_rewrite;
-	
-		// Admin taxo
 		$this->checkMergeTaxonomy();
 		$this->checkDeleteTaxonomy();
 		$this->checkImportExport();
@@ -247,7 +244,7 @@ class SimpleTaxonomy_Admin {
 		<div class="wrap">
 			<h2><?php _e("Simple Taxonomy : Export/Import", 'simple-taxonomy'); ?></h2>
 			
-			<a class="button" href="<?php echo wp_nonce_url($this->admin_url.'&amp;action=export_config', 'export-config'); ?>"><?php _e("Export config file", 'simple-taxonomy'); ?></a>
+			<a class="button" href="<?php echo wp_nonce_url($this->admin_url.'&amp;action=export_config_st', 'export-config-st'); ?>"><?php _e("Export config file", 'simple-taxonomy'); ?></a>
 			<a class="button" href="#" id="toggle-import_form"><?php _e("Import config file", 'simple-taxonomy'); ?></a>
 			<script type="text/javascript">
 				jQuery("#toggle-import_form").click(function(event) {
@@ -645,13 +642,13 @@ class SimpleTaxonomy_Admin {
 	}
 
 	/**
-	 * Check $_POST datas for add/merge taxonomy
+	 * Check $_GET/$_POST/$_FILES for Export/Import
 	 * 
 	 * @return boolean
 	 */
 	function checkImportExport() {
-		if ( isset($_GET['action']) && $_GET['action'] == 'export_config' ) {
-			check_admin_referer('export-config');
+		if ( isset($_GET['action']) && $_GET['action'] == 'export_config_st' ) {
+			check_admin_referer('export-config-st');
 			
 			// No cache
 			header( 'Expires: Sat, 26 Jul 1997 05:00:00 GMT' ); 
@@ -701,8 +698,6 @@ class SimpleTaxonomy_Admin {
 	 * @return boolean
 	 */
 	function checkMergeTaxonomy() {
-		global $wp_rewrite;
-		
 		if ( isset($_POST['action']) && in_array( $_POST['action'], array('add-taxonomy', 'merge-taxonomy') ) ) {
 			
 			if ( !current_user_can('manage_options') )
@@ -753,6 +748,7 @@ class SimpleTaxonomy_Admin {
 				}
 				
 				// Flush rewriting rules !
+				global $wp_rewrite;
 				$wp_rewrite->flush_rules(false);
 				
 				return true;
@@ -772,8 +768,6 @@ class SimpleTaxonomy_Admin {
 	 * @author Amaury Balmer
 	 */
 	function checkDeleteTaxonomy() {
-		global $wp_rewrite;
-		
 		if ( isset($_GET['action']) && isset($_GET['taxonomy_name']) && $_GET['action'] == 'delete' ) {
 			check_admin_referer( 'delete-taxo-'.$_GET['taxonomy_name'] );
 			
@@ -782,6 +776,7 @@ class SimpleTaxonomy_Admin {
 			$this->deleteTaxonomy( $taxonomy, false );
 			
 			// Flush rewriting rules !
+			global $wp_rewrite;
 			$wp_rewrite->flush_rules(false);
 			
 			return true;
@@ -793,6 +788,7 @@ class SimpleTaxonomy_Admin {
 			$this->deleteTaxonomy( $taxonomy, true );
 			
 			// Flush rewriting rules !
+			global $wp_rewrite;
 			$wp_rewrite->flush_rules(false);
 			
 			return true;
