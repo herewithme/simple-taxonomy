@@ -3,13 +3,15 @@ Contributors: momo360modena
 Donate link: http://www.beapi.fr/donate/
 Tags: tags, taxonomies, custom taxonomies, taxonomy, category, categories, hierarchical, termmeta, meta, term meta, term conversion, conversion
 Requires at least: 3.1
-Tested up to: 3.2.1
-Stable tag: 3.2.1
+Tested up to: 3.3
+Stable tag: 3.3
 
 WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
 Add support for taxonomy with or without hierarchical. Choose the selector type for write post.
 
 Allow to add taxonomy to any objects registered on your installation. This plugin can be coupled with the plugin Custom Fields for WordPress to a new term meta database that allow to create on fly any field need for the taxonomy. For example, for a "Number" taxonomy, you can add fields : number ID, date of parution, screenshot, etc !
+
+This plugin is developped on WordPress 3.3, with the constant WP_DEBUG to TRUE.
 
 == Description ==
 
@@ -47,8 +49,14 @@ You must install a plugin for managing roles and permissions as:
 
 == Changelog ==
 
+* Version 3.3 :
+	* Add compatibility 3.3
+	* Rewrite convert term taxonomy tools (use bulk dropdown instead specific pages)
+	* Add custom taxonomies on dashboard
+* Version 3.2.1.1 :
+	* Fix possible bug with others plugin's beapi that use import 
 * Version 3.2.1 :
-	* Fix possible bug with others plugin's beapi that use export/import
+	* Fix possible bug with others plugin's beapi that use export
 * Version 3.2 :
 	* Fix a bug that not call permalink generation when taxonomy is updated/created/deleted (thanks to bniess for reporting)
 	* Add a tools for export/import plugin configuration

@@ -60,6 +60,39 @@ class SimpleTaxonomy_Admin {
 		add_action( 'admin_init', array(&$this, 'initStyleScript') );
 		add_action( 'admin_init', array(&$this, 'checkAdminPost') );
 		add_action( 'admin_menu', array(&$this, 'addMenu') );
+		add_action( 'activity_box_end', array(&$this, 'addTaxoDashboard') );
+	}
+	
+	/**
+	 * Add custom taxo on dashboard
+	 */
+	function addTaxoDashboard() {
+		$options = get_option( STAXO_OPTION );
+		if ( !is_array( $options['taxonomies'] ) )
+			return false;
+		?>
+		<div id="dashboard-custom-taxo">
+			<table>
+				<tbody>
+					<?php
+					foreach( (array) $options['taxonomies'] as $taxonomy ) :
+						$taxo = get_taxonomy( $taxonomy['name'] );
+						if ( $taxo == false || is_wp_error($taxo) )
+							continue;
+						?>
+						<tr>
+							<td class="first b b-<?php echo $taxo->name; ?>"><a href="edit-tags.php?taxonomy=<?php echo $taxo->name; ?>">15</a></td>
+							<td class="t <?php echo $taxo->name; ?>"><a href="edit-tags.php?taxonomy=<?php echo $taxo->name; ?>"><?php echo $taxo->labels->name; ?></a></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		</div>
+		<script type="text/javascript">
+			jQuery(".table_content table tbody").append( jQuery("#dashboard-custom-taxo table tbody").html() );
+			jQuery("#dashboard-custom-taxo").remove();
+		</script>
+		<?php
 	}
 	
 	/**
@@ -259,8 +292,8 @@ class SimpleTaxonomy_Admin {
 						<input type="file" name="config_file" />
 					</p>
 					<p class="submit">
-						<?php wp_nonce_field( 'import_config_file' ); ?>
-						<input class="button-primary" type="submit" name="import_config_file" value="<?php _e('I want import a config from a previous backup, this action will REPLACE current configuration', 'simple-taxonomy'); ?>" />
+						<?php wp_nonce_field( 'import_config_file_st' ); ?>
+						<input class="button-primary" type="submit" name="import_config_file_st" value="<?php _e('I want import a config from a previous backup, this action will REPLACE current configuration', 'simple-taxonomy'); ?>" />
 					</p>
 				</form>
 			</div>
@@ -666,8 +699,8 @@ class SimpleTaxonomy_Admin {
 			// force the browser to display the save dialog.
 			header("Content-Disposition: attachment; filename=simple-taxonomy-config-".date('U').".txt;");
 			die('SIMPLETAXONOMY'.base64_encode(serialize(get_option( STAXO_OPTION ))));
-		} elseif( isset($_POST['import_config_file']) && isset($_FILES['config_file']) ) {
-			check_admin_referer( 'import_config_file' );
+		} elseif( isset($_POST['import_config_file_st']) && isset($_FILES['config_file']) ) {
+			check_admin_referer( 'import_config_file_st' );
 			
 			if ( $_FILES['config_file']['error'] > 0 ) {
 				$this->message = __('An error occured during the config file upload. Please fix your server configuration and retry.', 'simple-taxonomy');
