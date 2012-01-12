@@ -117,7 +117,7 @@ class SimpleTaxonomy_Admin_Conversion{
 					if ( $taxonomy->name == $_GET['taxonomy'] ) continue; // Not itself...
 					if ( !current_user_can( $taxonomy->cap->manage_terms ) ) continue; // User can ?
 					?>
-					jQuery('div.actions select').append('<option value="convert_taxo-<?php echo $taxonomy->name; ?>">Convertir en <?php echo $taxonomy->labels->name; ?></option>');
+					jQuery('div.actions select').append('<option value="convert_taxo-<?php echo $taxonomy->name; ?>"><?php echo sprintf(__('Convert to %s', 'simple-taxonomy'), $taxonomy->labels->name); ?></option>');
 				<?php endforeach; ?>
 			</script>
 			<?php
