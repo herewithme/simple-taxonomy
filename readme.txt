@@ -3,7 +3,7 @@ Contributors: momo360modena
 Donate link: http://www.beapi.fr/donate/
 Tags: tags, taxonomies, custom taxonomies, taxonomy, category, categories, hierarchical, termmeta, meta, term meta, term conversion, conversion
 Requires at least: 3.1
-Tested up to: 3.3
+Tested up to: 3.3.1
 Stable tag: 3.3.1
 
 WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
