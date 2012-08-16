@@ -12,7 +12,7 @@ class SimpleTaxonomy_Admin_Taxo {
 	}
 	
 	/**
-	 * Allow to hightlight the "pages" top menu for page taxonomy
+	 * Allow to highlight the "pages" top menu for page taxonomy
 	 *
 	 **/
 	function fixTopMenu() {

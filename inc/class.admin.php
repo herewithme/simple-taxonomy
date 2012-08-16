@@ -118,6 +118,7 @@ class SimpleTaxonomy_Admin {
 	function checkAdminPost() {
 		$this->checkMergeTaxonomy();
 		$this->checkDeleteTaxonomy();
+		$this->checkExportTaxonomy();
 		$this->checkImportExport();
 	}
 	
@@ -233,6 +234,7 @@ class SimpleTaxonomy_Admin {
 										<br />
 										<div class="row-actions">
 											<span class="edit"><a href="<?php echo $this->admin_url; ?>&amp;action=edit&amp;taxonomy_name=<?php echo $_t_name; ?>">Modifier</a> | </span>
+											<span class="export"><a class="export_php-taxonomy" href="<?php echo wp_nonce_url($this->admin_url.'&amp;action=export_php&amp;taxonomy_name='.$_t_name, 'export_php-taxo-'.$_t_name); ?>"><?php _e('Export PHP', 'simple-taxonomy'); ?></a> | </span>
 											<span class="delete"><a class="delete-taxonomy" href="<?php echo wp_nonce_url($this->admin_url.'&amp;action=delete&amp;taxonomy_name='.$_t_name, 'delete-taxo-'.$_t_name); ?>" onclick="if ( confirm( '<?php echo esc_js( sprintf( __( "You are about to delete this taxonomy '%s'\n  'Cancel' to stop, 'OK' to delete.", 'simple-taxonomy' ), $_t['labels']['name'] ) ); ?>' ) ) { return true;}return false;"><?php _e('Delete', 'simple-taxonomy'); ?></a> | </span>
 											<span class="delete"><a class="flush-delete-taxonomy" href="<?php echo wp_nonce_url($this->admin_url.'&amp;action=flush-delete&amp;taxonomy_name='.$_t_name, 'flush-delete-taxo-'.$_t_name); ?>" onclick="if ( confirm( '<?php echo esc_js( sprintf( __( "You are about to delete and flush this taxonomy '%s' and all relations.\n  'Cancel' to stop, 'OK' to delete.", 'simple-taxonomy' ), $_t['labels']['name'] ) ); ?>' ) ) { return true;}return false;"><?php _e('Flush & Delete', 'simple-taxonomy'); ?></a></span>
 										</div>
@@ -789,6 +791,56 @@ class SimpleTaxonomy_Admin {
 				$this->message = __('Impossible to add your taxonomy... You must enter a taxonomy name.', 'simple-taxonomy');
 				$this->status  = 'error';
 			}
+		}
+		
+		return false;
+	}
+
+	/**
+	 * Allow to export registration CPT with PHP
+	 */
+	function checkExportTaxonomy() {
+		global $simple_taxonomy;
+		
+		if ( isset($_GET['action']) && isset($_GET['taxonomy_name']) && $_GET['action'] == 'export_php' ) {
+			check_admin_referer( 'export_php-taxo-'.$_GET['taxonomy_name'] );
+			
+			// Get proper taxo name
+			$taxo_name = stripslashes($_GET['taxonomy_name']);
+			
+			// Get taxo data
+			$current_options = get_option( STAXO_OPTION );
+			if ( !isset($current_options['taxonomies'][$taxo_name]) ) { // Taxo not exist ?
+				wp_die( __('Tcheater ? You try to delete a taxonomy who not exist...', 'simple-taxonomy') );
+				return false;
+			} else {
+				$taxo_data = $current_options['taxonomies'][$taxo_name];
+			}
+			
+			// Get proper args
+			$args = $simple_taxonomy['client-base']->prepareArgs( $taxo_data );
+			
+			// Get args to code
+			$code = 'register_taxonomy( "'.$taxo_data['name'].'", '.var_export($taxo_data['objects'], true).', '.var_export($args, true).' );';
+			
+			// Get plugin template
+			$output = file_get_contents( STAXO_DIR . '/inc/template/plugin.tpl' );
+			
+			// Replace marker by variables
+			$output = str_replace( '%TAXO_LABEL%', $args['labels']['name'], $output );
+			$output = str_replace( '%TAXO_NAME%', str_replace('-', '_', $taxo_name), $output );
+			$output = str_replace( '%TAXO_CODE%', $code, $output );
+			
+			// Force download
+			header( "Content-Disposition: attachment; filename=" . $taxo_name.'.php' );
+			header( "Content-Type: application/force-download" );
+			header( "Content-Type: application/octet-stream" );
+			header( "Content-Type: application/download" );
+			header( "Content-Description: File Transfer" ); 
+			flush(); // this doesn't really matter.
+			
+			die($output);
+			return true;
 		}
 		
 		return false;

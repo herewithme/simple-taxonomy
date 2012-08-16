@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Simple Taxonomy
-Version: 3.3.1
+Version: 3.4
 Plugin URI: http://redmine.beapi.fr/projects/show/simple-taxonomy
 Description: WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
 Author: Amaury Balmer
@@ -34,18 +34,12 @@ Todo :
 */
 
 // Folder name
-define ( 'STAXO_VERSION', '3.3.1' );
+define ( 'STAXO_VERSION', '3.4' );
 define ( 'STAXO_OPTION',  'simple-taxonomy' );
 define ( 'STAXO_FOLDER',  'simple-taxonomy' );
 
-// mu-plugins or regular plugins ?
-if ( is_dir(WPMU_PLUGIN_DIR . DIRECTORY_SEPARATOR . STAXO_FOLDER ) ) {
-	define ( 'STAXO_DIR', WPMU_PLUGIN_DIR . DIRECTORY_SEPARATOR . STAXO_FOLDER );
-	define ( 'STAXO_URL', WPMU_PLUGIN_URL . '/' . STAXO_FOLDER );
-} else {
-	define ( 'STAXO_DIR', WP_PLUGIN_DIR . DIRECTORY_SEPARATOR . STAXO_FOLDER );
-	define ( 'STAXO_URL', WP_PLUGIN_URL . '/' . STAXO_FOLDER );
-}
+define ( 'STAXO_URL', plugins_url('', __FILE__) );
+define ( 'STAXO_DIR', dirname(__FILE__) );
 
 // Library
 require( STAXO_DIR . '/inc/functions.inc.php' );

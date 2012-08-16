@@ -32,42 +32,45 @@ class SimpleTaxonomy_Client {
 		$options = get_option( STAXO_OPTION );
 		if ( is_array( $options['taxonomies'] ) ) {
 			foreach( (array) $options['taxonomies'] as $taxonomy ) {
-				
-				// Empty query_private ? use name
-				$taxonomy['query_var'] = trim($taxonomy['query_var']);
-				if ( empty($taxonomy['query_var']) ) {
-					$taxonomy['query_var'] = $taxonomy['name'];
-				}
-				
-				// Rewrite
-				if ( $taxonomy['rewrite'] == 'true' ) {
-					$taxonomy['rewrite'] = array( 'slug' => $taxonomy['query_var'], 'with_front' => true, 'hierarchical' => false );
-				}
-				
-				// Clean labels
-				foreach( $taxonomy['labels'] as $k => $v ) {
-					$taxonomy['labels'][$k] = stripslashes($v);
- 				}
-				
-				register_taxonomy( $taxonomy['name'], $taxonomy['objects'],
-					array(
-						'hierarchical' 			=> $taxonomy['hierarchical'],
-						'update_count_callback' => '_update_post_term_count', // use default WP callback
-						'rewrite' 				=> (boolean) $taxonomy['rewrite'],
-						'query_var' 			=> $taxonomy['query_var'],
-						'public' 				=> (boolean) $taxonomy['public'],
-						'show_ui' 				=> (boolean) $taxonomy['show_ui'],
-						'show_tagcloud' 		=> (boolean) $taxonomy['show_tagcloud'],
-						'labels' 				=> $taxonomy['labels'],
-						'capabilities' 			=> $taxonomy['capabilities'],
-						'show_in_nav_menus' 	=> (boolean) $taxonomy['show_in_nav_menus']
-					)
-				);
-				
+				register_taxonomy( $taxonomy['name'], $taxonomy['objects'], $this->prepareArgs( $taxonomy ) );
 			}
 			return true;
 		}
 		return false;
+	}
+
+	/**
+	 * Prepare ARGS from DB to function API
+	 */
+	function prepareArgs( $taxonomy ) {
+		// Empty query_private ? use name
+		$taxonomy['query_var'] = trim($taxonomy['query_var']);
+		if ( empty($taxonomy['query_var']) ) {
+			$taxonomy['query_var'] = $taxonomy['name'];
+		}
+		
+		// Rewrite
+		if ( $taxonomy['rewrite'] == 'true' ) {
+			$taxonomy['rewrite'] = array( 'slug' => $taxonomy['query_var'], 'with_front' => true, 'hierarchical' => false );
+		}
+		
+		// Clean labels
+		foreach( $taxonomy['labels'] as $k => $v ) {
+			$taxonomy['labels'][$k] = stripslashes($v);
+		}
+		
+		return array(
+			'hierarchical' 			=> $taxonomy['hierarchical'],
+			'update_count_callback' => '_update_post_term_count', // use default WP callback
+			'rewrite' 				=> (boolean) $taxonomy['rewrite'],
+			'query_var' 			=> $taxonomy['query_var'],
+			'public' 				=> (boolean) $taxonomy['public'],
+			'show_ui' 				=> (boolean) $taxonomy['show_ui'],
+			'show_tagcloud' 		=> (boolean) $taxonomy['show_tagcloud'],
+			'labels' 				=> $taxonomy['labels'],
+			'capabilities' 			=> $taxonomy['capabilities'],
+			'show_in_nav_menus' 	=> (boolean) $taxonomy['show_in_nav_menus']
+		);
 	}
 	
 	/**
