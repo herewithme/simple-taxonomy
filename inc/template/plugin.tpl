@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name: %TAXO_LABEL%
-Version: 1.0
-Plugin URI: http://www.example.com
-Description: Taxonomy %TAXO_LABEL%
-Author: Simple Taxonomy Generator
-Author URI: http://www.example.com
+Plugin Name: TODO - %TAXO_LABEL%
+Version: 1.0-todo
+Plugin URI: http://www.todo.com
+Description: TODO - Taxonomy %TAXO_LABEL%
+Author: TODO - Simple Taxonomy Generator
+Author URI: http://www.todo.com
 
 ----
 
-Copyright 2012 - Author
+Copyright 2012 - TODO Author
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -30,4 +30,3 @@ add_action( 'init', 'register_my_taxo_%TAXO_NAME%', 10 );
 function register_my_taxo_%TAXO_NAME%() {
 %TAXO_CODE%
 }
-?>
