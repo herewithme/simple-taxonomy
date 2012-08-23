@@ -56,6 +56,12 @@ You must install a plugin for managing roles and permissions as:
 
 * Version 3.4.1 :
 	* Fix a bug with query_var on rewrite rules (thanks to Chris Talkington)
+	* Change PHP for use __construct()
+	* Change PHP for use static function instead class object
+	* Change PHP for add private/public for all methods
+	* Use WP API for manage actions message
+	* Move external CSS to inline (only one line on file... skip 1 http connection)
+	* Remove obsolete code
 * Version 3.4 :
 	* Add export PHP feature
 	* Mark as compatible with WP 3.4.1

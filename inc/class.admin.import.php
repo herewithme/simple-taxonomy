@@ -1,34 +1,30 @@
 <?php
 class SimpleTaxonomy_Admin_Import{
-	private $import_slug 		= 'simple-taxonomy-import';
-	
-	// Error management
-	private $message = '';
-	private $status  = '';
+	const import_slug = 'simple-taxonomy-import';
 		
 	/**
 	 * Constructor
 	 *
 	 */
-	function simpletaxonomy_admin_import() {
-		add_action( 'admin_init', array(&$this, 'checkAdminPost') );
-		add_action( 'admin_menu', array(&$this, 'addMenu') );
+	public function __construct() {
+		add_action( 'admin_init', array(__CLASS__, 'checkAdminPost') );
+		add_action( 'admin_menu', array(__CLASS__, 'addMenu') );
 	}
 	
 	/**
 	 * Meta function for load all check functions.
 	 *
 	 */
-	function checkAdminPost() {
-		$this->checkImportation();
+	public static function checkAdminPost() {
+		self::checkImportation();
 	}
 	
 	/**
 	 * Add settings menu page
 	 *
 	 **/
-	function addMenu() {
-		add_management_page( __('Terms importation', 'simple-taxonomy'), __('Terms importation', 'simple-taxonomy'), 'manage_options', $this->import_slug, array( &$this, 'pageImportation' ) );
+	public static function addMenu() {
+		add_management_page( __('Terms importation', 'simple-taxonomy'), __('Terms importation', 'simple-taxonomy'), 'manage_options', self::import_slug, array( __CLASS__, 'pageImportation' ) );
 	}
 	
 	/**
@@ -36,7 +32,7 @@ class SimpleTaxonomy_Admin_Import{
 	 *
 	 * @return boolean
 	 */
-	function checkImportation() {
+	private static function checkImportation() {
 		global $wpdb;
 		
 		if ( isset($_POST['taxonomy-import']) ) {
@@ -67,7 +63,7 @@ class SimpleTaxonomy_Admin_Import{
 					$level = strlen($term_line) - strlen(ltrim( $term_line, $sep ));
 					
 					if ( $j == 0 ) {
-						$prev_ids[0] = $this->createTerm( $_POST['taxonomy'], $term_line, 0 );
+						$prev_ids[0] = self::createTerm( $_POST['taxonomy'], $term_line, 0 );
 					} else {
 						if ( ($level - 1 ) < 0 ) {
 							$parent = 0;
@@ -75,25 +71,24 @@ class SimpleTaxonomy_Admin_Import{
 							$parent = $prev_ids[$level - 1];
 						}
 						
-						$prev_ids[$level] = $this->createTerm( $_POST['taxonomy'], $term_line, $parent );
+						$prev_ids[$level] = self::createTerm( $_POST['taxonomy'], $term_line, $parent );
 					}
 				} else {
-					$this->createTerm( $_POST['taxonomy'], $term_line, 0 );
+					self::createTerm( $_POST['taxonomy'], $term_line, 0 );
 				}
 				
 				$j++;
 			}
 			
 			if ( $j > 0 ) {
-				$this->message = sprintf(__('Done, %d terms imported with success !', 'simple-taxonomy'), $j);
+				add_settings_error('simple-taxonomy', 'settings_updated', sprintf(__('Done, %d terms imported with success !', 'simple-taxonomy'), $j), 'updated');
 			} else {
-				$this->status  = 'error';
-				$this->message = __('Done, but you have imported any term.', 'simple-taxonomy');
+				add_settings_error('simple-taxonomy', 'settings_updated', __('Done, but you have imported any term.', 'simple-taxonomy'), 'error');
 			}
 			
 			return true;
-		
 		}
+
 		return false;
 	}
 	
@@ -106,7 +101,7 @@ class SimpleTaxonomy_Admin_Import{
 	 * @return integer|boolean
 	 * @author Amaury Balmer
 	 */
-	function createTerm( $taxonomy = '', $term_name = '', $parent = 0 ) {
+	private static function createTerm( $taxonomy = '', $term_name = '', $parent = 0 ) {
 		$term_name = trim($term_name);
 		if ( empty($term_name) )
 			return false;
@@ -133,18 +128,18 @@ class SimpleTaxonomy_Admin_Import{
 	 * Display page for allow import in custom taxonomies.
 	 *
 	 */
-	function pageImportation() {
+	public static function pageImportation() {
 		if ( !isset($_POST['import_content']) ) $_POST['import_content'] = '';
 		if ( !isset($_POST['taxonomy']) ) $_POST['taxonomy'] = '';
 		if ( !isset($_POST['hierarchy']) ) $_POST['hierarchy'] = '';
 		
-		$this->displayMessage();
+		settings_errors('simple-taxonomy');
 		?>
 		<div class="wrap">
 			<h2><?php _e('Terms import', 'simple-taxonomy'); ?></h2>
 			<p><?php _e('This page allows to import an list of words as terms of a taxonomy.', 'simple-taxonomy'); ?></p>
 			
-			<form action="<?php echo admin_url( 'tools.php?page='.$this->import_slug ); ?>" method="post">
+			<form action="<?php echo admin_url( 'tools.php?page='.self::import_slug ); ?>" method="post">
 				<p>
 					<label for="taxonomy"><?php _e('Choose a taxonomy', 'simple-taxonomy'); ?></label>
 					<br />
@@ -180,26 +175,6 @@ class SimpleTaxonomy_Admin_Import{
 			</form>
 		</div>
 		<?php
-	}
-	
-	/**
-	 * Display WP alert
-	 *
-	 */
-	function displayMessage() {
-		if ( $this->message != '') {
-			$message = $this->message;
-			$status = $this->status;
-			$this->message = $this->status = ''; // Reset
-		}
-		
-		if ( isset($message) && !empty($message) ) {
-		?>
-			<div id="message" class="<?php echo ($status != '') ? $status :'updated'; ?> fade">
-				<p><strong><?php echo $message; ?></strong></p>
-			</div>
-		<?php
-		}
 	}
 }
 ?>
