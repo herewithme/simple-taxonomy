@@ -1,16 +1,17 @@
-=== Simple Taxonomy ===
-Contributors: momo360modena
-Donate link: http://www.beapi.fr/donate/
-Tags: tags, taxonomies, custom taxonomies, taxonomy, category, categories, hierarchical, termmeta, meta, term meta, term conversion, conversion
-Requires at least: 3.1
-Stable tag: 3.4.1
-Tested up to: 3.4.1
-License: GPLv2 or later
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+# Simple Taxonomy 
 
 WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
 
-== Description ==
+* Contributors: http://profiles.wordpress.org/momo360modena/
+* Donate link: http://www.beapi.fr/donate/
+* Tags: tags, taxonomies, custom taxonomies, taxonomy, category, categories, hierarchical, termmeta, meta, term meta, term conversion, conversion
+* Requires at least: 3.1
+* Stable tag: 3.4.1
+* Tested up to: 3.4.1
+* License: GPLv2 or later
+* License URI: http://www.gnu.org/licenses/gpl-2.0.html
+
+## Description
 
 WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
 
@@ -25,26 +26,26 @@ To boot, it comes with a set of template tags for those who don't mind adapting 
 
 For full info go the [Simple Taxonomy](https://github.com/herewithme/simple-taxonomy) page.
 
-== Frequently Asked Questions ==
+## Frequently Asked Questions
 
-= Does this plugin handles custom fields? =
+### Does this plugin handles custom fields?
 
 No, we prefer to use 2 plugins specifically designed to meet two different needs ...
 
-= How to create a custom post type? =
+### How to create a custom post type?
 
 You can use a another plugin writted by Me and BeAPI :
 
 * [Simple Custom Post Types](http://wordpress.org/extend/plugins/simple-post-types/)
 
-= How to create a custom role? =
+### How to create a custom role?
 
 You must install a plugin for managing roles and permissions as:
 
 * [Use role editor](http://wordpress.org/extend/plugins/user-role-editor/)
 * [Capability Manager](http://wordpress.org/extend/plugins/capsman/)
 
-== Installation ==
+## Installation
 
  **Required PHP5.**
 
@@ -52,7 +53,7 @@ You must install a plugin for managing roles and permissions as:
 2. Activate the plugin within you WordPress Administration Backend
 3. Go to Settings > Custom Taxonomies and follow the steps on the [Simple Taxonomy](https://github.com/herewithme/simple-taxonomy) page.
 
-== Changelog ==
+## Changelog
 
 * Version 3.4.1 :
 	* Fix a bug with query_var on rewrite rules (thanks to Chris Talkington)
@@ -91,7 +92,3 @@ You must install a plugin for managing roles and permissions as:
 	* Fix notice PHP
 * Version 3.0.0
 	* Initial version
-	
-== Upgrade Notice ==
-
-Nothing here :)

@@ -50,7 +50,8 @@ class SimpleTaxonomy_Client {
 		}
 		
 		// Rewrite
-		if ( $taxonomy['rewrite'] == 'true' ) {
+		$taxonomy['rewrite'] = (boolean) $taxonomy['rewrite'];
+		if ( $taxonomy['rewrite'] == true ) {
 			$taxonomy['rewrite'] = array( 'slug' => $taxonomy['query_var'], 'with_front' => true, 'hierarchical' => false );
 		}
 		
@@ -62,7 +63,7 @@ class SimpleTaxonomy_Client {
 		return array(
 			'hierarchical' 			=> $taxonomy['hierarchical'],
 			'update_count_callback' => '_update_post_term_count', // use default WP callback
-			'rewrite' 				=> (boolean) $taxonomy['rewrite'],
+			'rewrite' 				=> $taxonomy['rewrite'],
 			'query_var' 			=> $taxonomy['query_var'],
 			'public' 				=> (boolean) $taxonomy['public'],
 			'show_ui' 				=> (boolean) $taxonomy['show_ui'],
