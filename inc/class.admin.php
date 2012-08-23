@@ -741,8 +741,7 @@ class SimpleTaxonomy_Admin {
 				}
 				
 				// Flush rewriting rules !
-				global $wp_rewrite;
-				$wp_rewrite->flush_rules(false);
+				flush_rewrite_rules( false );
 				
 				return true;
 			} else {
@@ -818,8 +817,7 @@ class SimpleTaxonomy_Admin {
 			self::deleteTaxonomy( $taxonomy, false );
 			
 			// Flush rewriting rules !
-			global $wp_rewrite;
-			$wp_rewrite->flush_rules(false);
+			flush_rewrite_rules( false );
 			
 			return true;
 		} elseif ( isset($_GET['action']) && isset($_GET['taxonomy_name']) && $_GET['action'] == 'flush-delete' ) {
@@ -830,8 +828,7 @@ class SimpleTaxonomy_Admin {
 			self::deleteTaxonomy( $taxonomy, true );
 			
 			// Flush rewriting rules !
-			global $wp_rewrite;
-			$wp_rewrite->flush_rules(false);
+			flush_rewrite_rules( false );
 			
 			return true;
 		}
