@@ -1,15 +1,15 @@
 <?php
 /*
 Plugin Name: Simple Taxonomy
-Version: 3.4
-Plugin URI: http://redmine.beapi.fr/projects/show/simple-taxonomy
+Version: 3.4.1
+Plugin URI: https://github.com/herewithme/simple-taxonomy
 Description: WordPress 3.1 and up allow for reasonably simple custom taxonomy, this plugin makes it even simpler, removing the need for you to write <em>any</em> code.
 Author: Amaury Balmer
 Author URI: http://www.beapi.fr
 
 ----
 
-Copyright 2010-2011 Amaury Balmer (amaury@beapi.fr)
+Copyright 2010-2012 Amaury Balmer (amaury@beapi.fr)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -34,7 +34,7 @@ Todo :
 */
 
 // Folder name
-define ( 'STAXO_VERSION', '3.4' );
+define ( 'STAXO_VERSION', '3.4.1' );
 define ( 'STAXO_OPTION',  'simple-taxonomy' );
 define ( 'STAXO_FOLDER',  'simple-taxonomy' );
 
