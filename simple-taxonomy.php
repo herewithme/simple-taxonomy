@@ -28,6 +28,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 ---
 
 Todo :
+	Core :
+		Make a class for CPT object (add, delete, update, etc)
 	Admin
 	Extras
 	Client
@@ -43,10 +45,10 @@ define ( 'STAXO_DIR', dirname(__FILE__) );
 
 // Library
 require( STAXO_DIR . '/inc/functions.inc.php' );
-//require( STAXO_DIR . '/inc/functions.tpl.php' );
+// require( STAXO_DIR . '/inc/functions.tpl.php' );
 
 // Call client classes
-require( STAXO_DIR . '/inc/class.base.php' );
+// require( STAXO_DIR . '/inc/class.base.php' );
 require( STAXO_DIR . '/inc/class.client.php' );
 require( STAXO_DIR . '/inc/class.widget.php' );
 
@@ -58,11 +60,11 @@ if ( is_admin() ) { // Call admin classes
 }
 
 // Activate/Desactive Simple Taxonomy
-register_activation_hook  ( __FILE__, array('SimpleTaxonomy_Base', 'activate') );
-register_deactivation_hook( __FILE__, array('SimpleTaxonomy_Base', 'deactivate') );
+// register_activation_hook  ( __FILE__, array('SimpleTaxonomy_Base', 'activate') );
+// register_deactivation_hook( __FILE__, array('SimpleTaxonomy_Base', 'deactivate') );
 
-add_action( 'plugins_loaded', 'initSimpleTaxonomy' );
-function initSimpleTaxonomy() {
+add_action( 'plugins_loaded', 'init_simple_taxonomy' );
+function init_simple_taxonomy() {
 	global $simple_taxonomy;
 	
 	// Load translations

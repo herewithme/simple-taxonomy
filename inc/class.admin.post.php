@@ -5,18 +5,18 @@ class SimpleTaxonomy_Admin_Post {
 	 *
 	 * @return boolean
 	 */
-	function simpletaxonomy_admin_post() {
+	public function __construct() {
 		// Save taxo datas
-		add_action( 'save_post', array(&$this, 'saveObjectTaxonomies'), 10, 2 );
+		add_action( 'save_post', array(__CLASS__, 'saveObjectTaxonomies'), 10, 2 );
 		
 		// Write post box meta
-		add_action( 'add_meta_boxes', array(&$this, 'initObjectTaxonomies'), 10, 2 );
+		add_action( 'add_meta_boxes', array(__CLASS__, 'initObjectTaxonomies'), 10, 2 );
 		
 		// Add cols in list view
-		add_filter( 'manage_posts_columns', array(&$this, 'addColumnTaxonomies'), 10, 2 );
-		add_filter( 'manage_pages_columns', array(&$this, 'addColumnTaxonomies'), 10, 2 );
-		add_action( 'manage_posts_custom_column', array(&$this,'addCustomColumn'), 10, 2 );
-		add_action( 'manage_pages_custom_column', array(&$this,'addCustomColumn'), 10, 2 );
+		add_filter( 'manage_posts_columns', array(__CLASS__, 'addColumnTaxonomies'), 10, 2 );
+		add_filter( 'manage_pages_columns', array(__CLASS__, 'addColumnTaxonomies'), 10, 2 );
+		add_action( 'manage_posts_custom_column', array(__CLASS__,'addCustomColumn'), 10, 2 );
+		add_action( 'manage_pages_custom_column', array(__CLASS__,'addCustomColumn'), 10, 2 );
 	}
 	
 	/**
@@ -27,7 +27,7 @@ class SimpleTaxonomy_Admin_Post {
 	 * @return void
 	 * @author Amaury Balmer
 	 */
-	function addColumnTaxonomies( $posts_columns, $post_type = 'page' ) {
+	public static function addColumnTaxonomies( $posts_columns, $post_type = 'page' ) {
 		$taxos = get_object_taxonomies($post_type, 'objects');
 		foreach( $taxos as $taxo ) {
 			if ( $taxo->public == false || $taxo->show_ui == false || $taxo->_builtin == true )
@@ -47,7 +47,7 @@ class SimpleTaxonomy_Admin_Post {
 	 * @return void
 	 * @author Amaury Balmer
 	 */
-	function addCustomColumn( $column_name, $post_id ) {
+	public static function addCustomColumn( $column_name, $post_id ) {
 		global $post;
 		
 		if( substr($column_name, 0, 6) == 'staxo-' ) {
@@ -74,7 +74,7 @@ class SimpleTaxonomy_Admin_Post {
 	 * @return boolean
 	 * @author Amaury Balmer
 	 */
-	function saveObjectTaxonomies( $post_ID = 0, $post = null ) {
+	public static function saveObjectTaxonomies( $post_ID = 0, $post = null ) {
 		foreach ( get_object_taxonomies($post->post_type) as $tax_name ) {
 			// Classic fields
 			if( isset($_POST['_taxo_st_'.$tax_name]) && $_POST['_taxo_st_'.$tax_name] == 'true' ) {
@@ -104,7 +104,7 @@ class SimpleTaxonomy_Admin_Post {
 	 * @return boolean
 	 * @author Amaury Balmer
 	 */
-	function initObjectTaxonomies( $post_type = '', $post = null ) {
+	public static function initObjectTaxonomies( $post_type = '', $post = null ) {
 		// Prepare admin type for each taxo
 		$current_options = get_option( STAXO_OPTION );
 		$taxonomies_admin = array();
@@ -133,11 +133,11 @@ class SimpleTaxonomy_Admin_Post {
 			// Display meta box
 			switch( $ad_type ) {
 				case 'select' : // Custom single selector
-					add_meta_box( 'tagsdiv-' . $tax_name, $label, array(&$this, 'post_select_meta_box'), $post_type, 'side', 'default', array( 'taxonomy' => $tax_name ) );
+					add_meta_box( 'tagsdiv-' . $tax_name, $label, array(__CLASS__, 'post_select_meta_box'), $post_type, 'side', 'default', array( 'taxonomy' => $tax_name ) );
 					break;
 				
 				case 'select-multi' : // Custom multiple selector
-					add_meta_box( 'tagsdiv-' . $tax_name, $label, array(&$this, 'post_select_multi_meta_box'), $post_type, 'side', 'default', array( 'taxonomy' => $tax_name ) );
+					add_meta_box( 'tagsdiv-' . $tax_name, $label, array(__CLASS__, 'post_select_multi_meta_box'), $post_type, 'side', 'default', array( 'taxonomy' => $tax_name ) );
 					break;
 				
 				case 'default' : // Default
@@ -161,7 +161,7 @@ class SimpleTaxonomy_Admin_Post {
 	 * @param object $post
 	 * @param array $box
 	 */
-	function post_select_meta_box( $post, $box, $multiple = false ) {
+	public static function post_select_meta_box( $post, $box, $multiple = false ) {
 		// Use default or custom taxonomy ?
 		$defaults = array('taxonomy' => 'post_tag');
 		if ( !isset($box['args']) || !is_array($box['args']) )
@@ -176,7 +176,7 @@ class SimpleTaxonomy_Admin_Post {
 		
 		// User can edit or not ?
 		$disabled = !current_user_can($taxonomy->cap->assign_terms) ? 'disabled="disabled"' : '';
-		$multiple = ($multiple == true) ? 'class="multiselect" multiple="multiple"' : '';
+		$multiple = ($multiple == true) ? 'class="multiselect" multiple="multiple" style="display:block;height:auto;"' : '';
 		
 		// Current values
 		$current_terms = wp_get_post_terms( $post->ID, $tax_name, 'fields=ids' );
@@ -213,8 +213,8 @@ class SimpleTaxonomy_Admin_Post {
 	 * @param object $post
 	 * @param array $box
 	 */
-	function post_select_multi_meta_box( $post, $box ) {
-		return $this->post_select_meta_box( $post, $box, true );
+	public static function post_select_multi_meta_box( $post, $box ) {
+		return self::post_select_meta_box( $post, $box, true );
 	}
 }
 ?>

@@ -12,8 +12,15 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 	 * @return void
 	 * @author Amaury Balmer
 	 */
-	function SimpleTaxonomy_Widget() {
-		$this->WP_Widget( 'staxonomy', __('Simple Taxonomy Widget', 'simple-taxonomy'), array( 'classname' => 'st-widget', 'description' => __('A advanced tag cloud or list for your custom taxonomy!', 'simple-taxonomy') ) );
+	public function __construct() {
+		parent::__construct( 
+			'staxonomy', 
+			__('Simple Taxonomy Widget', 'simple-taxonomy'), 
+			array(
+				'classname' => 'st-widget', 
+				'description' => __('A advanced tag cloud or list for your custom taxonomy!', 'simple-taxonomy')
+			)
+		);
 	}
 	
 	/**
@@ -23,7 +30,7 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 	 * @return string
 	 * @author Amaury Balmer
 	 */
-	function _get_current_taxonomy($instance) {
+	private function _get_current_taxonomy($instance) {
 		if ( !empty($instance['taxonomy']) && taxonomy_exists($instance['taxonomy']) )
 			return $instance['taxonomy'];
 		
@@ -38,7 +45,7 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 	 * @return void
 	 * @author Amaury Balmer
 	 */
-	function widget( $args, $instance ) {
+	public function widget( $args, $instance ) {
 		extract( $args );
 		$current_taxonomy = $this->_get_current_taxonomy($instance);
 		
@@ -93,7 +100,7 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 	 * @return void
 	 * @author Amaury Balmer
 	 */
-	function update( $new_instance, $old_instance ) {
+	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 		
 		// String
@@ -114,7 +121,7 @@ class SimpleTaxonomy_Widget extends WP_Widget {
 	 * @return void
 	 * @author Amaury Balmer
 	 */
-	function form( $instance ) {
+	public function form( $instance ) {
 		$defaults = array(
 			'title' 		=> __('Adv Tag Cloud', 'simple-taxonomy'),
 			'type' 			=> 'cloud',

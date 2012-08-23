@@ -6,7 +6,7 @@ class SimpleTaxonomy_Base {
 	 * @return void
 	 * @author Amaury Balmer
 	 */
-	function activate() {}
+	public static function activate() {}
 	
 	/**
 	 * Empty function for callback uninstall
@@ -14,6 +14,6 @@ class SimpleTaxonomy_Base {
 	 * @return void
 	 * @author Amaury Balmer
 	 */
-	function deactivate() {}
+	public static function deactivate() {}
 }
 ?>
