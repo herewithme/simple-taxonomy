@@ -23,7 +23,7 @@ This plugin is developped on WordPress 3.3, with the constant WP_DEBUG to TRUE.
 This plugin allows you to add taxonomy just by giving them a name and somes options in the backend. It then creates the taxonomy for you, takes care of the URL rewrites, provides a widget you can use to display a "taxonomy cloud" or a list of all the stuff in there, and it allows you to show the taxonomy contents at the end of posts and excerpts as well.
 To boot, it comes with a set of template tags for those who don't mind adapting their own theme.
 
-For full info go the [Simple Taxonomy](http://redmine.beapi.fr/projects/show/simple-taxonomy) page.
+For full info go the [Simple Taxonomy](https://github.com/herewithme/simple-taxonomy) page.
 
 == Frequently Asked Questions ==
 
@@ -50,7 +50,7 @@ You must install a plugin for managing roles and permissions as:
 
 1. Download, unzip and upload to your WordPress plugins directory
 2. Activate the plugin within you WordPress Administration Backend
-3. Go to Settings > Custom Taxonomies and follow the steps on the [Simple Taxonomy](http://redmine.beapi.fr/projects/show/simple-taxonomy) page.
+3. Go to Settings > Custom Taxonomies and follow the steps on the [Simple Taxonomy](https://github.com/herewithme/simple-taxonomy) page.
 
 == Changelog ==
 
