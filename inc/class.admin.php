@@ -756,7 +756,6 @@ class SimpleTaxonomy_Admin {
 	 * Allow to export registration CPT with PHP
 	 */
 	private static function checkExportTaxonomy() {
-		global $simple_taxonomy;
 		
 		if ( isset($_GET['action']) && isset($_GET['taxonomy_name']) && $_GET['action'] == 'export_php' ) {
 			check_admin_referer( 'export_php-taxo-'.$_GET['taxonomy_name'] );
@@ -774,7 +773,7 @@ class SimpleTaxonomy_Admin {
 			}
 			
 			// Get proper args
-			$args = $simple_taxonomy['client-base']->prepareArgs( $taxo_data );
+			$args = SimpleTaxonomy_Client::prepareArgs( $taxo_data );
 			
 			// Get args to code
 			$code = 'register_taxonomy( "'.$taxo_data['name'].'", '.var_export($taxo_data['objects'], true).', '.var_export($args, true).' );';
