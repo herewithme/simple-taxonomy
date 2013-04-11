@@ -35,7 +35,7 @@ class SimpleTaxonomy_Admin {
 							continue;
 						?>
 						<tr>
-							<td class="first b b-<?php echo $taxo->name; ?>"><a href="edit-tags.php?taxonomy=<?php echo $taxo->name; ?>">15</a></td>
+							<td class="first b b-<?php echo $taxo->name; ?>"><a href="edit-tags.php?taxonomy=<?php echo $taxo->name; ?>"><?php echo wp_count_terms( $taxo->name ); ?></a></td>
 							<td class="t <?php echo $taxo->name; ?>"><a href="edit-tags.php?taxonomy=<?php echo $taxo->name; ?>"><?php echo $taxo->labels->name; ?></a></td>
 						</tr>
 					<?php endforeach; ?>
