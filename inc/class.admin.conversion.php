@@ -108,14 +108,14 @@ class SimpleTaxonomy_Admin_Conversion{
 	public static function admin_footer() {
 		global $pagenow;
 		
-		if ( $pagenow == 'edit-tags.php' ) {
+		if ( $pagenow == 'edit-tags.php' && !isset( $_GET['tag_ID'] ) ) {
 			?>
 			<script type="text/javascript">
 				<?php foreach( get_taxonomies( array( 'show_ui' => true, 'public' => true ), 'objects' ) as $taxonomy ) :
 					if ( $taxonomy->name == $_GET['taxonomy'] ) continue; // Not itself...
 					if ( !current_user_can( $taxonomy->cap->manage_terms ) ) continue; // User can ?
 					?>
-					jQuery('div.actions select').append('<option value="convert_taxo-<?php echo $taxonomy->name; ?>"><?php echo sprintf(__('Convert to %s', 'simple-taxonomy'), $taxonomy->labels->name); ?></option>');
+					jQuery('div.actions select').append('<option value="convert_taxo-<?php echo $taxonomy->name; ?>"><?php echo esc_js( sprintf(__('Convert to %s', 'simple-taxonomy'), $taxonomy->labels->name) ); ?></option>');
 				<?php endforeach; ?>
 			</script>
 			<?php
