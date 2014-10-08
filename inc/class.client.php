@@ -60,7 +60,7 @@ class SimpleTaxonomy_Client {
 			$taxonomy['labels'][$k] = stripslashes($v);
 		}
 		
-		return array(
+		return apply_filters( 'simple-taxonomy-prepare-args', array(
 			'hierarchical' 			=> $taxonomy['hierarchical'],
 			'update_count_callback' => '_update_post_term_count', // use default WP callback
 			'rewrite' 				=> $taxonomy['rewrite'],
@@ -71,7 +71,7 @@ class SimpleTaxonomy_Client {
 			'labels' 				=> $taxonomy['labels'],
 			'capabilities' 			=> $taxonomy['capabilities'],
 			'show_in_nav_menus' 	=> (boolean) $taxonomy['show_in_nav_menus']
-		);
+		), $taxonomy );
 	}
 	
 	/**
